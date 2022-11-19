@@ -29,7 +29,7 @@ AppDataSource.initialize()
     });
 
     // Global Error handler
-    app.use((error: AppError, req: Request, res: Response, next: NextFunction) => {
+    app.use((error: AppError, _req: Request, res: Response, _next: NextFunction) => {
       error.status = error.status || "error";
       error.statusCode = error.statusCode || 500;
 
@@ -40,8 +40,8 @@ AppDataSource.initialize()
     });
 
     // Health checkers
-    app.get("/api/ping", async (_req, res: Response) => {
-      res.status(200).send("ping");
+    app.get("/api/ping", (_req, res: Response) => {
+      return res.status(200).send("ping");
     });
 
     app.listen(PORT);
