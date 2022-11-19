@@ -1,10 +1,16 @@
 import { GlobalStyles } from "@/styles/global";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Home } from "@/features/Home";
+import { Fragment } from "react";
 
 export const App = () => {
   return (
-    <div>
+    <Fragment>
       <GlobalStyles />
-      <p>yoo</p>
-    </div>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Fragment>
   );
 };
