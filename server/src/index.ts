@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
 import { Response } from "express";
 import { AppDataSource } from "./data-source";
 import { PORT } from "./config/port.config";
@@ -11,6 +13,8 @@ AppDataSource.initialize()
 
     // Middlewares
     app.use(bodyParser.json());
+    app.use(cors());
+    app.use(morgan("dev"));
 
     // Routes
     app.use("/api/users", userRouter);
