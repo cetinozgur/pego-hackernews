@@ -1,52 +1,26 @@
-import * as express from "express"
-import * as bodyParser from "body-parser"
-import { Request, Response } from "express"
-import { AppDataSource } from "./data-source"
-import { Routes } from "./routes"
-import { User } from "./entity/User"
+import express from "express";
+import bodyParser from "body-parser";
+import { Response } from "express";
+import { AppDataSource } from "./data-source";
+import { PORT } from "./config/port.config";
+import { userRouter } from "./routes/user.routes";
 
-AppDataSource.initialize().then(async () => {
+AppDataSource.initialize()
+  .then(async () => {
+    const app = express();
 
-    // create express app
-    const app = express()
-    app.use(bodyParser.json())
+    // Middlewares
+    app.use(bodyParser.json());
 
-    // register express routes from defined application routes
-    Routes.forEach(route => {
-        (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
-            const result = (new (route.controller as any))[route.action](req, res, next)
-            if (result instanceof Promise) {
-                result.then(result => result !== null && result !== undefined ? res.send(result) : undefined)
+    // Routes
+    app.use("/api/users", userRouter);
 
-            } else if (result !== null && result !== undefined) {
-                res.json(result)
-            }
-        })
-    })
+    // Health checkers
+    app.get("/api/ping", async (_req, res: Response) => {
+      res.status(200).send("ping");
+    });
 
-    // setup express app here
-    // ...
-
-    // start express server
-    app.listen(3000)
-
-    // insert new users for test
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            firstName: "Timber",
-            lastName: "Saw",
-            age: 27
-        })
-    )
-
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            firstName: "Phantom",
-            lastName: "Assassin",
-            age: 24
-        })
-    )
-
-    console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results")
-
-}).catch(error => console.log(error))
+    app.listen(PORT);
+    console.log(`Server has started on port ${PORT}`);
+  })
+  .catch((error) => console.log(error));
