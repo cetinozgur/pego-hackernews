@@ -3,5 +3,6 @@ import express from "express";
 
 export const userRouter = express.Router();
 
-userRouter.get("/", UserController.all);
+userRouter.get("/", UserController.getAll);
+userRouter.post("/", UserController.create);
 userRouter.get("/:id", UserController.findById);

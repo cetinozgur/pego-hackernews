@@ -5,12 +5,28 @@ import { AppDataSource } from "@/data-source";
 const userRepository = AppDataSource.getRepository(User);
 
 export class UserController {
-  static async all(req: Request, res: Response, next: NextFunction) {
+  static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await userRepository.find();
       return res.status(200).json({ status: "success", users });
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { firstName, lastName } = req.body;
+      const newUser = new User();
+      newUser.firstName = firstName;
+      newUser.lastName = lastName;
+      await userRepository.save(newUser);
+      res.status(201).json({
+        status: "success",
+        data: { newUser },
+      });
+    } catch (error) {
+      next(error);
     }
   }
 
