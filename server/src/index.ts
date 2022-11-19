@@ -1,3 +1,4 @@
+import { validateEnv } from "@/utils/validateEnv";
 import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
@@ -9,7 +10,9 @@ import { userRouter } from "@/routes/user.routes";
 
 AppDataSource.initialize()
   .then(async () => {
-    const app = express();
+    validateEnv(); // validates env variables on start
+
+    const app = express(); // initialize express server
 
     // Middlewares
     app.use(bodyParser.json());
