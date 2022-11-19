@@ -3,10 +3,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
-import { Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "@/data-source";
 import { PORT } from "@/config/port.config";
 import { userRouter } from "@/routes/user.routes";
+import AppError from "@/utils/appError.util";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -21,6 +22,22 @@ AppDataSource.initialize()
 
     // Routes
     app.use("/api/users", userRouter);
+
+    // Unknown route
+    app.all("*", (req: Request, res: Response, next: NextFunction) => {
+      next(new AppError(404, `Route ${req.originalUrl} not found`));
+    });
+
+    // Global Error handler
+    app.use((error: AppError, req: Request, res: Response, next: NextFunction) => {
+      error.status = error.status || "error";
+      error.statusCode = error.statusCode || 500;
+
+      res.status(error.statusCode).json({
+        status: error.status,
+        message: error.message,
+      });
+    });
 
     // Health checkers
     app.get("/api/ping", async (_req, res: Response) => {
