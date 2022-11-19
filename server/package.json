@@ -23,8 +23,8 @@
     "typeorm": "0.3.9"
   },
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts",
+    "dev": "nodemon -r tsconfig-paths/register src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs"
   }
 }

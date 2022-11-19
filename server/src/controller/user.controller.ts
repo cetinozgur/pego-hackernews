@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entity/user.entity";
-import { AppDataSource } from "../data-source";
+import { User } from "@/entity/user.entity";
+import { AppDataSource } from "@/data-source";
 
 const userRepository = AppDataSource.getRepository(User);
 

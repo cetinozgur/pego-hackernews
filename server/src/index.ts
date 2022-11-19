@@ -3,9 +3,9 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 import { Response } from "express";
-import { AppDataSource } from "./data-source";
-import { PORT } from "./config/port.config";
-import { userRouter } from "./routes/user.routes";
+import { AppDataSource } from "@/data-source";
+import { PORT } from "@/config/port.config";
+import { userRouter } from "@/routes/user.routes";
 
 AppDataSource.initialize()
   .then(async () => {
