@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 
 export const UserMenu = () => {
   return (
@@ -22,7 +23,9 @@ export const UserMenu = () => {
           />
         </MenuButton>
         <MenuList>
-          <MenuItem>Profile</MenuItem>
+          <MenuItem as={NavLink} to="/">
+            Profile
+          </MenuItem>
           <MenuDivider />
           <MenuItem>Sign Out</MenuItem>
         </MenuList>
