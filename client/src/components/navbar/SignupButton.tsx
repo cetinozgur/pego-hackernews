@@ -7,10 +7,10 @@ export const SignupButton = () => {
       fontSize={"sm"}
       fontWeight={600}
       color={"white"}
-      bg={"blue.400"}
+      bg={"orange.400"}
       // href={"#"}
       _hover={{
-        bg: "blue.300",
+        bg: "orange.300",
       }}
     >
       Sign Up

@@ -10,6 +10,7 @@ export const Logo = () => {
         fontFamily={"heading"}
         color={useColorModeValue("gray.800", "white")}
         fontWeight="bold"
+        fontSize="xl"
         _hover={{
           cursor: "pointer",
         }}
