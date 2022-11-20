@@ -6,7 +6,6 @@ import { Fragment } from "react";
 export const App = () => {
   return (
     <Fragment>
-      <GlobalStyles />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
