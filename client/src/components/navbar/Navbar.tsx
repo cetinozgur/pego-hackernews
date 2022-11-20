@@ -32,7 +32,7 @@ export const Navbar = () => {
           <Logo />
           <NavLinks />
         </HStack>
-        {/* <UserMenu /> */}
+        <UserMenu />
         <AuthButtons />
       </Flex>
 
