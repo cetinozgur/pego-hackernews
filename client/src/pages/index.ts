@@ -1,2 +1,2 @@
-export * from "./ExitPage";
-export * from "./HomePage";
+export * from "./Home.page";
+export * from "./Stories.page";

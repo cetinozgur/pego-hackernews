@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { HomePage, ExitPage } from "@/pages";
 import { Fragment } from "react";
+import { StoriesPage, HomePage } from "./pages";
 
 export const App = () => {
   return (
@@ -8,7 +8,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/exit" element={<ExitPage />} />
+        <Route path="/stories" element={<StoriesPage />} />
       </Routes>
     </Fragment>
   );
