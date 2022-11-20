@@ -1,4 +1,3 @@
-import { GlobalStyles } from "@/styles/global";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { HomePage, ExitPage } from "@/pages";
 import { Fragment } from "react";
