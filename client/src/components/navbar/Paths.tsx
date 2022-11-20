@@ -5,7 +5,7 @@ interface PathType {
 
 export const paths: PathType[] = [
   {
-    text: "Home",
-    url: "/home",
+    text: "Stories",
+    url: "/stories",
   },
 ];

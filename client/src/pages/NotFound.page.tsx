@@ -1,9 +1,9 @@
 import { Layout } from "@/components";
 
-export const ExitPage = () => {
+export const NotFoundPage = () => {
   return (
     <Layout>
-      <p>Callback when logged out...</p>
+      <p>Not found page placeholder..</p>
     </Layout>
   );
 };

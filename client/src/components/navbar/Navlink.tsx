@@ -18,7 +18,6 @@ export const NavLink = ({ children, destination }: NavlinkProps) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}
   >
     {children}
   </Link>

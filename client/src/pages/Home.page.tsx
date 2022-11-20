@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 export const HomePage = () => {
   return (
     <Layout>
-      <p>Testing auth0, keep this protected..</p>
+      <p>Unprotected route.. User will be redirected here after log out.</p>
     </Layout>
   );
 };

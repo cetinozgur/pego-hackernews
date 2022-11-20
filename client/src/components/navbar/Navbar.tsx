@@ -33,7 +33,7 @@ export const Navbar = () => {
           <NavLinks />
         </HStack>
         <UserMenu />
-        {/* <AuthButtons /> */}
+        <AuthButtons />
       </Flex>
 
       {isOpen ? (
