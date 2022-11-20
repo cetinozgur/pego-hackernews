@@ -14,9 +14,11 @@ import { AuthButtons } from "./AuthButtons";
 import { NavLinks } from "./Navlinks";
 import { Logo } from "./Logo";
 import { paths } from "./Paths";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={10}>
@@ -32,8 +34,7 @@ export const Navbar = () => {
           <Logo />
           <NavLinks />
         </HStack>
-        <UserMenu />
-        <AuthButtons />
+        {isAuthenticated ? <UserMenu /> : <AuthButtons />}
       </Flex>
 
       {isOpen ? (

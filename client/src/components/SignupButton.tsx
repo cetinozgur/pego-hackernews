@@ -17,7 +17,6 @@ export const SignupButton = () => {
       fontWeight={600}
       color={"white"}
       bg={"orange.400"}
-      // href={"#"}
       _hover={{
         bg: "orange.300",
       }}
