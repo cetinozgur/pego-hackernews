@@ -13,9 +13,7 @@ import { UserMenu } from "./UserMenu";
 import { AuthButtons } from "./AuthButtons";
 import { NavLinks } from "./Navlinks";
 import { Logo } from "./Logo";
-
-// Navigation links
-const Links = ["Dashboard", "Projects", "Team"];
+import { paths } from "./Paths";
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,8 +39,10 @@ export const Navbar = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as={"nav"} spacing={4}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
+            {paths.map(({ text, url }) => (
+              <NavLink key={text} destination={url}>
+                {text}
+              </NavLink>
             ))}
           </Stack>
         </Box>
