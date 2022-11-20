@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const UserMenu = () => {
-  const { logout } = useAuth0();
+  const { logout, user } = useAuth0();
 
   const handleLogout = () => logout();
 
@@ -20,7 +20,7 @@ export const UserMenu = () => {
     <Flex alignItems={"center"}>
       <Menu>
         <MenuButton as={Button} rounded={"full"} variant={"link"} cursor={"pointer"} minW={0}>
-          <Avatar size={"sm"} src={"https://avatars.githubusercontent.com/u/77247880?v=4"} />
+          <Avatar size={"sm"} src={user?.picture} />
         </MenuButton>
         <MenuList>
           <MenuItem as={NavLink} to="/">
