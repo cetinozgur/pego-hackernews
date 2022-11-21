@@ -5,13 +5,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
-import { Request, Response, NextFunction } from "express";
+import { Response } from "express";
 import { AppDataSource } from "@/data-source";
 import { PORT } from "@/config/port.config";
 import { userRouter } from "@/routes/user.routes";
 import { checkJwt } from "@/middleware/auth0.middleware";
-
-import AppError from "@/utils/appError.util";
+import { CLIENT_ORIGIN_URL } from "./config/auth.config";
 
 AppDataSource.initialize()
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -22,7 +21,11 @@ AppDataSource.initialize()
 
     // Middlewares
     app.use(bodyParser.json());
-    app.use(cors());
+    app.use(
+      cors({
+        origin: CLIENT_ORIGIN_URL,
+      })
+    );
     app.use(morgan("dev"));
 
     // Routes
