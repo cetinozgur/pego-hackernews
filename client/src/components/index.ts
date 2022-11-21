@@ -2,5 +2,5 @@ export * from "./navbar";
 export * from "./Layout";
 export * from "./LoginButton";
 export * from "./PageLoading";
-export * from "./ProtectedRoute";
+export * from "../routes/ProtectedRoute";
 export * from "./SignupButton";
