@@ -1,3 +1,5 @@
+import { notFoundHandler } from "./middleware/notFound.middleware";
+import { errorHandler } from "./middleware/errorHandler.middleware";
 import { validateEnv } from "@/utils/validateEnv";
 import express from "express";
 import bodyParser from "body-parser";
@@ -7,9 +9,12 @@ import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "@/data-source";
 import { PORT } from "@/config/port.config";
 import { userRouter } from "@/routes/user.routes";
+import { checkJwt } from "@/middleware/auth0.middleware";
+
 import AppError from "@/utils/appError.util";
 
 AppDataSource.initialize()
+  // eslint-disable-next-line @typescript-eslint/require-await
   .then(async () => {
     validateEnv(); // validates env variables on start
 
@@ -21,23 +26,11 @@ AppDataSource.initialize()
     app.use(morgan("dev"));
 
     // Routes
-    app.use("/api/users", userRouter);
+    app.use("/api/users", checkJwt, userRouter);
 
-    // Unknown route
-    app.all("*", (req: Request, res: Response, next: NextFunction) => {
-      next(new AppError(404, `Route ${req.originalUrl} not found`));
-    });
-
-    // Global Error handler
-    app.use((error: AppError, _req: Request, res: Response, _next: NextFunction) => {
-      error.status = error.status || "error";
-      error.statusCode = error.statusCode || 500;
-
-      res.status(error.statusCode).json({
-        status: error.status,
-        message: error.message,
-      });
-    });
+    // Error handler middlewares
+    app.all("*", notFoundHandler);
+    app.use(errorHandler);
 
     // Health checkers
     app.get("/api/ping", (_req, res: Response) => {
