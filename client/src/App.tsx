@@ -8,8 +8,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 export const App = () => {
   const { user, isAuthenticated, error, isLoading } = useAuth0();
 
-  if (isLoading) {
-    return <PageLoading />;
+  if (!isLoading) {
+    return <PageLoading desc="Authenticating..." />;
   }
 
   console.log("Auth Info:", user, isAuthenticated, error);
