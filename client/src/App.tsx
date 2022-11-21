@@ -1,21 +1,15 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Fragment } from "react";
-import { StoriesPage, HomePage, NotFoundPage } from "./pages";
 import { useAuth0 } from "@auth0/auth0-react";
+import { PageLoading } from "@/components";
+import { AppRoutes } from "@/routes";
 
 export const App = () => {
-  const { user, isAuthenticated, error } = useAuth0();
+  const { user, isAuthenticated, error, isLoading } = useAuth0();
 
-  console.log(user, isAuthenticated, error);
+  if (isLoading) {
+    return <PageLoading desc="Authenticating..." />;
+  }
 
-  return (
-    <Fragment>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/stories" element={<StoriesPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Fragment>
-  );
+  console.log("Auth Info:", user, isAuthenticated, error);
+
+  return <AppRoutes />;
 };

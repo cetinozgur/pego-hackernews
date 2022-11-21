@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { UserController } from "@/controller/user.controller";
 import express from "express";
 

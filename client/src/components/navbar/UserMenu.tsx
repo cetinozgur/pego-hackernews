@@ -23,7 +23,7 @@ export const UserMenu = () => {
           <Avatar size={"sm"} src={user?.picture} />
         </MenuButton>
         <MenuList>
-          <MenuItem as={NavLink} to="/">
+          <MenuItem as={NavLink} to="/profile">
             Profile
           </MenuItem>
           <MenuDivider />
