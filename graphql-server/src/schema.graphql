@@ -1,11 +1,12 @@
 type Query {
   stories: [Story!]!
   story(id: ID!): Story
+  storyIds: [Int!]!
 }
 
 type Story {
   id: ID!
-  by: User
+  by: User!
   descendants: Int
   kids: [Int!]
   score: Int

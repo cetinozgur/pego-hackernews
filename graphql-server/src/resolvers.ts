@@ -1,18 +1,18 @@
-import type { Context } from "./context";
+import { Resolvers } from "__generated__/resolvers-types";
 
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    stories: async (_: any, __: any, { dataSources }: Context) => {
+    stories: async (_, __, { dataSources }) => {
       const storyIds = await dataSources.storyApi.getTopStoryIds();
       return storyIds.map((id: number) => dataSources.storyApi.getItemById(id));
     },
-    story: (_: any, { id }: any, { dataSources }: Context, info: any) => {
+    story: (_, { id }, { dataSources }) => {
       return dataSources.storyApi.getItemById(id);
     },
   },
   Story: {
-    by: ({ by }: { by: string }, _: any, { dataSources }: Context, __: any) => {
-      return dataSources.storyApi.getAuthorByName(by);
+    by: ({ by }, _, { dataSources }, __) => {
+      return dataSources.storyApi.getUserByName(moveBy);
     },
   },
 };

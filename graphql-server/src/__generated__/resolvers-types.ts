@@ -30,6 +30,7 @@ export type Query = {
   __typename?: 'Query';
   stories: Array<Story>;
   story?: Maybe<Story>;
+  storyIds: Array<Scalars['Int']>;
 };
 
 
@@ -39,7 +40,7 @@ export type QueryStoryArgs = {
 
 export type Story = {
   __typename?: 'Story';
-  by?: Maybe<User>;
+  by: User;
   descendants?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   kids?: Maybe<Array<Scalars['Int']>>;
@@ -166,10 +167,11 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
+  storyIds?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
 }>;
 
 export type StoryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']> = ResolversObject<{
-  by?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  by?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   descendants?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
