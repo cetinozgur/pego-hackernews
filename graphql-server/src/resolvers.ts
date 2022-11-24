@@ -1,8 +1,3 @@
-import { ApolloServer } from "apollo-server";
-import { PORT as port } from "./config";
-import { typeDefs } from "./schema";
-import { resolvers } from "./resolvers";
-
 const data = [
   {
     by: "dhouston",
@@ -36,14 +31,8 @@ const data = [
   },
 ];
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  csrfPrevention: true,
-  cache: "bounded",
-});
-
-// The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+export const resolvers = {
+  Query: {
+    stories: () => data,
+  },
+};

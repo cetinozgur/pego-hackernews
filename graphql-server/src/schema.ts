@@ -1,10 +1,19 @@
-import { makeSchema } from "nexus";
-import { join } from "path";
+import { gql } from "apollo-server";
 
-export const schema = makeSchema({
-  types: [],
-  outputs: {
-    schema: join(process.cwd(), "schema.graphql"), // 2
-    typegen: join(process.cwd(), "nexus-typegen.ts"), // 3
-  },
-});
+export const typeDefs = gql`
+  type Story {
+    id: ID!
+    by: String!
+    descendants: Int
+    kids: [Int!]!
+    score: Int
+    time: Int
+    title: String!
+    type: String!
+    url: String!
+  }
+
+  type Query {
+    stories: [Story!]!
+  }
+`;
