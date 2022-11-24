@@ -5,7 +5,6 @@ export class StoryAPI extends RESTDataSource {
     super();
     this.baseURL = "https://hacker-news.firebaseio.com/v0/";
   }
-
   getTopStoryIds() {
     return this.get("topstories.json");
   }
