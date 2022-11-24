@@ -7,7 +7,8 @@ export const server = new ApolloServer({
   schema,
 });
 
-// 2
+console.log(port);
+
 server.listen({ port }).then(({ url }) => {
   console.log(`🚀  GraphQL server ready at ${url}`);
 });

@@ -7,4 +7,4 @@ if (result.error) {
   throw result.error;
 }
 
-export const { PORT } = process.env;
+export const PORT = process.env.GRAPHQL_PORT;
