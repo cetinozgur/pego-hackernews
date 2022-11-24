@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.1",
     "@auth0/auth0-react": "^1.12.0",
     "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "^2.4.1",
@@ -18,6 +19,7 @@
     "@types/react-dom": "^18.0.9",
     "craco": "^0.0.3",
     "framer-motion": "^7.6.7",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-epic-spinners": "^0.5.0",

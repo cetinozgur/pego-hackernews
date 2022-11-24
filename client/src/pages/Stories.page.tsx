@@ -1,9 +1,10 @@
 import { Layout } from "@/components";
+import { StoriesGrid } from "@/features/story/StoriesGrid";
 
 export const StoriesPage = () => {
   return (
     <Layout>
-      <p>Stories..Will be shown after authentication..</p>
+      <StoriesGrid />
     </Layout>
   );
 };
