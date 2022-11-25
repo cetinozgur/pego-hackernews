@@ -12,10 +12,17 @@ export const StoriesGrid = () => {
     return <p>{error.message}</p>;
   }
 
-  console.log(data.stories);
-
   return (
     <div>
+      {data &&
+        data.stories.map((story) => {
+          return (
+            <div key={story.id}>
+              <p>{JSON.stringify(story)}</p>
+              <hr />
+            </div>
+          );
+        })}
       <p>yo</p>
     </div>
   );

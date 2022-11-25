@@ -34,7 +34,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "lint": "craco eslint './src/**/*.{ts,tsx}'"
+    "lint": "craco eslint './src/**/*.{ts,tsx}'",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.14.0",
+    "@graphql-codegen/client-preset": "1.1.5",
     "@types/styled-components": "^5.1.26"
   }
 }
