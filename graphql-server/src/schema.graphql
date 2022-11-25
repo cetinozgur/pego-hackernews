@@ -1,14 +1,13 @@
 type Query {
   stories: [Story!]!
   story(id: ID!): Story
-  storyIds: [Int!]!
 }
 
 type Story {
   id: ID!
   by: User!
   descendants: Int
-  kids: [Int!]
+  kids: [Comment]
   score: Int
   time: Int
   title: String!
@@ -27,10 +26,10 @@ type User {
 
 type Comment {
   id: ID!
-  by: User
+  by: String!
   kids: [Int]
   parent: Int
-  text: String!
+  text: String
   time: Int
   type: String
 }

@@ -6,13 +6,24 @@ export class StoryAPI extends RESTDataSource {
     super();
     this.baseURL = "https://hacker-news.firebaseio.com/v0/";
   }
-  async getTopStoryIds() {
+
+  getTopStoryIds() {
     return this.get("topstories.json");
   }
-  async getItemById(storyId: unknown) {
+
+  getBestStoryIds() {
+    return this.get("beststories.json");
+  }
+
+  getNewStoryIds() {
+    return this.get("newstories.json");
+  }
+
+  async getItemById(storyId: number) {
     return this.get(`item/${storyId}.json`);
   }
-  async getUserByName(userId: unknown) {
+
+  getUserByName(userId: string) {
     return this.get(`user/${userId}.json`);
   }
 }

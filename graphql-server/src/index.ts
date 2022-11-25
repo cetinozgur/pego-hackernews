@@ -1,4 +1,3 @@
-import { storyApi } from "./context";
 import { StoryAPI } from "./datasources/story-api";
 import { ApolloServer } from "apollo-server";
 import { resolvers } from "./resolvers";
@@ -13,8 +12,6 @@ export interface MyContext {
     storyApi: StoryAPI;
   };
 }
-
-// export type MyContext = any;
 
 const server = new ApolloServer({
   typeDefs,

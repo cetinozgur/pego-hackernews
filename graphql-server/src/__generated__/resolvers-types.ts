@@ -30,7 +30,6 @@ export type Query = {
   __typename?: 'Query';
   stories: Array<Story>;
   story?: Maybe<Story>;
-  storyIds: Array<Scalars['Int']>;
 };
 
 
@@ -167,7 +166,6 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
-  storyIds?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
 }>;
 
 export type StoryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']> = ResolversObject<{
