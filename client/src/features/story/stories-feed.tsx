@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { STORIES } from "./queries";
+import { GET_STORIES } from "./queries";
 
-export const StoriesGrid = () => {
-  const { loading, error, data } = useQuery(STORIES);
+export const StoriesFeed = () => {
+  const { loading, error, data } = useQuery(GET_STORIES);
 
   if (loading) {
     return <p>loading</p>;

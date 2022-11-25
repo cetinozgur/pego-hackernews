@@ -16,11 +16,11 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  by?: Maybe<User>;
+  by: Scalars['String'];
   id: Scalars['ID'];
-  kids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  kids?: Maybe<Array<Scalars['Int']>>;
   parent?: Maybe<Scalars['Int']>;
-  text: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
   time?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -59,10 +59,10 @@ export type User = {
   submitted?: Maybe<Array<Scalars['Int']>>;
 };
 
-export type GetSoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetStoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSoriesQuery = { __typename?: 'Query', stories: Array<{ __typename?: 'Story', id: string, descendants?: number | null, kids?: Array<number> | null, score?: number | null, time?: number | null, title: string, type: string, url?: string | null, by: { __typename?: 'User', id: string, about?: string | null, delay?: number | null, created?: number | null, karma?: number | null } }> };
+export type GetStoriesQuery = { __typename?: 'Query', stories: Array<{ __typename?: 'Story', id: string, descendants?: number | null, kids?: Array<number> | null, score?: number | null, time?: number | null, title: string, type: string, url?: string | null, by: { __typename?: 'User', id: string } }> };
 
 
-export const GetSoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"by"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"about"}},{"kind":"Field","name":{"kind":"Name","value":"delay"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"karma"}}]}},{"kind":"Field","name":{"kind":"Name","value":"descendants"}},{"kind":"Field","name":{"kind":"Name","value":"kids"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"time"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<GetSoriesQuery, GetSoriesQueryVariables>;
+export const GetStoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"by"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"descendants"}},{"kind":"Field","name":{"kind":"Name","value":"kids"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"time"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<GetStoriesQuery, GetStoriesQueryVariables>;

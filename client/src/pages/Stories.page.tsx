@@ -1,10 +1,10 @@
 import { Layout } from "@/components";
-import { StoriesGrid } from "@/features/story/StoriesGrid";
+import { StoriesFeed } from "@/features/story/stories-feed";
 
 export const StoriesPage = () => {
   return (
     <Layout>
-      <StoriesGrid />
+      <StoriesFeed />
     </Layout>
   );
 };

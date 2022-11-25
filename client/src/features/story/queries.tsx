@@ -1,16 +1,11 @@
-import { gql } from "@apollo/client";
 import { graphql } from "@/gql";
 
-export const STORIES = graphql(/* GraphQL */ `
-  query getSories {
+export const GET_STORIES = graphql(/* GraphQL */ `
+  query GetStories {
     stories {
       id
       by {
         id
-        about
-        delay
-        created
-        karma
       }
       descendants
       kids

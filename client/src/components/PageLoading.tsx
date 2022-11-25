@@ -1,4 +1,4 @@
-import { BreedingRhombusSpinner } from "react-epic-spinners";
+import { IntersectingCirclesSpinner } from "react-epic-spinners";
 import { Box, Text } from "@chakra-ui/react";
 
 interface PageLoadingProps {
@@ -7,7 +7,7 @@ interface PageLoadingProps {
   desc?: string;
 }
 
-export const PageLoading = ({ color = "black", size = 50, desc }: PageLoadingProps) => {
+export const PageLoading = ({ color = "black", size = 40, desc }: PageLoadingProps) => {
   return (
     <Box
       h="100vh"
@@ -17,7 +17,7 @@ export const PageLoading = ({ color = "black", size = 50, desc }: PageLoadingPro
       alignItems="center"
       flexDirection="column"
     >
-      <BreedingRhombusSpinner color={color} size={size} />
+      <IntersectingCirclesSpinner color={color} size={size} />
       <Text as={"i"} mt={10}>
         {desc}
       </Text>

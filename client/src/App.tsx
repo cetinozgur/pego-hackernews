@@ -6,7 +6,7 @@ export const App = () => {
   const { user, isAuthenticated, error, isLoading } = useAuth0();
 
   if (isLoading) {
-    return <PageLoading desc="Authenticating..." />;
+    return <PageLoading />;
   }
 
   console.log("Auth Info:", user, isAuthenticated, error);
