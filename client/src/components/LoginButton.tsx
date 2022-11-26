@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from "rsuite";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const LoginButton = () => {
@@ -8,9 +8,5 @@ export const LoginButton = () => {
     await loginWithRedirect();
   };
 
-  return (
-    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} onClick={handleLogin}>
-      Sign In
-    </Button>
-  );
+  return <Button onClick={handleLogin}>Sign In</Button>;
 };

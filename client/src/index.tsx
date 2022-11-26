@@ -2,10 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "@/App";
 import { BrowserRouter } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CALLBACK_URL, AUTH0_AUDIENCE } from "./constants";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { CustomProvider } from "rsuite";
+import "@/style/custom-theme.less";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <ChakraProvider>
+      <CustomProvider theme="dark">
         <BrowserRouter>
           <Auth0Provider
             domain={AUTH0_DOMAIN}
@@ -27,7 +28,7 @@ root.render(
             <App />
           </Auth0Provider>
         </BrowserRouter>
-      </ChakraProvider>
+      </CustomProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
