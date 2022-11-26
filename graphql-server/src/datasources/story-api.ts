@@ -19,11 +19,11 @@ export class StoryAPI extends RESTDataSource {
     return this.get("newstories.json");
   }
 
-  async getItemById(storyId: number) {
+  async getItemById(storyId: unknown) {
     return this.get(`item/${storyId}.json`);
   }
 
-  getUserByName(userId: string) {
+  getUserByName(userId: unknown) {
     return this.get(`user/${userId}.json`);
   }
 }

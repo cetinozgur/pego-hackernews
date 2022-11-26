@@ -17,11 +17,11 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  by?: Maybe<User>;
+  by: Scalars['String'];
   id: Scalars['ID'];
-  kids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  kids?: Maybe<Array<Scalars['Int']>>;
   parent?: Maybe<Scalars['Int']>;
-  text: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
   time?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -153,11 +153,11 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type CommentResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
-  by?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  kids?: Resolver<Maybe<Array<Maybe<ResolversTypes['Int']>>>, ParentType, ContextType>;
+  kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   parent?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   time?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
