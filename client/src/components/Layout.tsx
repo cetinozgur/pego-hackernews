@@ -14,11 +14,12 @@ export const Layout = ({ children }: { children: ReactNode }) => {
 };
 
 const Container = styled.div`
-  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `;
 
 const Content = styled.div`
   padding: 3rem 6rem;
+  height: 100%;
 `;
-
-// const Footer = styled.div``;

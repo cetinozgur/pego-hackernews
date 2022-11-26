@@ -1,6 +1,6 @@
 import { Nav } from "rsuite";
-import { LoginButton } from "@/components/LoginButton";
-import { SignupButton } from "@/components/SignupButton";
+import { LoginButton } from "@/components/login-button";
+import { SignupButton } from "@/components/signup-button";
 
 export const AuthButtons = () => {
   return (

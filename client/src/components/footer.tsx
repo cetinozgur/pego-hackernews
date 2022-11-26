@@ -1,4 +1,4 @@
-import { Navbar, Nav, Stack } from "rsuite";
+import { Navbar, Stack } from "rsuite";
 
 export const Footer = () => {
   return (

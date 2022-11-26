@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { ProtectedRoute } from "./protected-route";
 import { NotFoundPage, HomePage, ProfilePage } from "@/pages";
 
 export const AppRoutes = () => {
