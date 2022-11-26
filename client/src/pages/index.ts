@@ -1,4 +1,3 @@
-export * from "./Home.page";
-export * from "./Stories.page";
-export * from "./NotFound.page";
-export * from "./Profile.page";
+export * from "./home-page";
+export * from "./notfound-page";
+export * from "./profile-page";

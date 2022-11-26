@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from "rsuite";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const LoginButton = () => {
@@ -9,7 +9,7 @@ export const LoginButton = () => {
   };
 
   return (
-    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} onClick={handleLogin}>
+    <Button appearance="ghost" onClick={handleLogin}>
       Sign In
     </Button>
   );

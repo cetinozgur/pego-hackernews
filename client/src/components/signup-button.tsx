@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from "rsuite";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const SignupButton = () => {
@@ -11,17 +11,7 @@ export const SignupButton = () => {
   };
 
   return (
-    <Button
-      display={{ base: "none", md: "inline-flex" }}
-      fontSize={"sm"}
-      fontWeight={600}
-      color={"white"}
-      bg={"orange.400"}
-      _hover={{
-        bg: "orange.300",
-      }}
-      onClick={handleSignUp}
-    >
+    <Button appearance="primary" onClick={handleSignUp}>
       Sign Up
     </Button>
   );
