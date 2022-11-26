@@ -14,6 +14,7 @@ export const resolvers: Resolvers = {
     by: ({ by }, _, { dataSources }, __) => {
       return dataSources.storyApi.getUserByName(by);
     },
+    // Gets the top level comment of story
     kids: async ({ kids: commentIds }, _, { dataSources }, __) => {
       if (commentIds && commentIds.length > 0) {
         return commentIds.map((id) => dataSources.storyApi.getItemById(id));
