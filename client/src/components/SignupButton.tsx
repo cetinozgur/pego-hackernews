@@ -10,5 +10,9 @@ export const SignupButton = () => {
     });
   };
 
-  return <Button onClick={handleSignUp}>Sign Up</Button>;
+  return (
+    <Button appearance="primary" onClick={handleSignUp}>
+      Sign Up
+    </Button>
+  );
 };

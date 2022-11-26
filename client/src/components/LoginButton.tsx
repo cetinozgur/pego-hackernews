@@ -8,5 +8,9 @@ export const LoginButton = () => {
     await loginWithRedirect();
   };
 
-  return <Button onClick={handleLogin}>Sign In</Button>;
+  return (
+    <Button appearance="ghost" onClick={handleLogin}>
+      Sign In
+    </Button>
+  );
 };

@@ -4,5 +4,5 @@ export const ProfilePage = () => {
   const { user } = useAuth0();
   console.log(user);
 
-  return <p>yo</p>;
+  return <p>yooo</p>;
 };
