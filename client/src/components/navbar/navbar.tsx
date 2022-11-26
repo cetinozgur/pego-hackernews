@@ -9,7 +9,7 @@ export const Navbar = () => {
   const { Brand } = SuiteNavbar;
 
   return (
-    <SuiteNavbar>
+    <SuiteNavbar style={{ padding: "0 3rem" }}>
       <Brand>
         <strong>HACKER NEWS</strong>
       </Brand>

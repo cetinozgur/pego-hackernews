@@ -1,18 +1,15 @@
-// import { useAuth0 } from "@auth0/auth0-react";
-// import { PageLoading } from "@/components";
-// import { AppRoutes } from "@/routes";
-import { Layout } from "./components/Layout";
+import { useAuth0 } from "@auth0/auth0-react";
+import { PageLoading } from "@/components";
+import { AppRoutes } from "@/routes";
 
 export const App = () => {
-  // const { user, isAuthenticated, error, isLoading } = useAuth0();
+  const { user, isAuthenticated, error, isLoading } = useAuth0();
 
-  // if (isLoading) {
-  //   return <PageLoading />;
-  // }
+  if (isLoading) {
+    return <PageLoading />;
+  }
 
-  // console.log("Auth Info:", user, isAuthenticated, error);
+  console.log("Auth Info:", user, isAuthenticated, error);
 
-  return <Layout />;
-
-  // return <AppRoutes />;
+  return <AppRoutes />;
 };
