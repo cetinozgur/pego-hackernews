@@ -7,6 +7,7 @@ import { Divider } from "rsuite";
 import styled from "styled-components";
 import { Pagination } from "rsuite";
 import { useState } from "react";
+import { timeDifferenceForDate } from "@/utils/time-converter";
 
 export const Feed = ({ type }: { type: string }) => {
   const dispatch = useAppDispatch();
@@ -38,7 +39,7 @@ export const Feed = ({ type }: { type: string }) => {
                 <Divider vertical />
                 <DetailLink className={theme}>by {story.by.id}</DetailLink>
                 <Divider vertical />
-                <DetailText className={theme}>3 hours ago</DetailText>
+                <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>
                 <Divider vertical />
                 <DetailLink className={theme}>{story.descendants} comments</DetailLink>
               </Details>
