@@ -1,10 +1,10 @@
 import { Layout } from "@/components";
 import { Feed } from "@/features/stories/feed";
 
-export const TopStoriesPage = () => {
+export const NewStoriesPage = () => {
   return (
     <Layout>
-      <Feed type="top" />
+      <Feed type="new" />
     </Layout>
   );
 };
