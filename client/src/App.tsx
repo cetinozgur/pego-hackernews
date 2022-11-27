@@ -4,21 +4,22 @@ import { CustomProvider } from "rsuite";
 import { useAppSelector } from "./redux/hooks";
 import { useDispatch } from "react-redux";
 import { setAlert } from "./redux/alert-slice";
+import { Layout, PageLoading } from "./components";
 
 export const App = () => {
-  const { user, isAuthenticated, error: authError } = useAuth0();
+  const { user, isLoading, error } = useAuth0();
   const dispatch = useDispatch();
   const theme = useAppSelector((state) => state.theme.value);
 
-  console.log("Auth Info:", user, isAuthenticated, authError);
+  console.log("Auth Info:", user);
 
-  if (authError) {
+  if (error) {
     dispatch(setAlert({ type: "error", message: "error.message" }));
   }
 
   return (
     <CustomProvider theme={theme}>
-      <AppRoutes />
+      <Layout>{isLoading ? <PageLoading /> : <AppRoutes />}</Layout>
     </CustomProvider>
   );
 };

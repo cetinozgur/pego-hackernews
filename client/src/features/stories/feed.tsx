@@ -11,13 +11,13 @@ import { useState } from "react";
 export const Feed = ({ type }: { type: string }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.theme.value);
+  const [activePage, setActivePage] = useState(5);
   const { loading, error, data } = useQuery(GET_STORIES_BY_TYPE, {
     variables: { storyType: type },
   });
-  const [activePage, setActivePage] = useState(5);
 
   if (loading) {
-    return <PageLoading desc="Loading Stories.." />;
+    return <PageLoading desc="loading stories.." />;
   }
 
   if (error) {
@@ -46,26 +46,28 @@ export const Feed = ({ type }: { type: string }) => {
           );
         })}
       </FeedGrid>
-      <Pagination
-        prev
-        last
-        next
-        first
-        size="md"
-        total={data ? data.stories.length : 0}
-        limit={20}
-        activePage={activePage}
-        onChangePage={setActivePage}
-        style={{ marginTop: "1rem" }}
-      />
+      <PaginationWrapper>
+        <Pagination
+          prev
+          last
+          next
+          first
+          size="md"
+          total={data ? data.stories.length : 0}
+          limit={20}
+          activePage={activePage}
+          onChangePage={setActivePage}
+        />
+      </PaginationWrapper>
     </Container>
   );
 };
 
+// Styles
 const Container = styled.div`
-  max-height: 100%;
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   overflow-x: hidden;
+  max-height: 100%; */
 `;
 
 const FeedGrid = styled.div`
@@ -75,9 +77,9 @@ const FeedGrid = styled.div`
 `;
 
 const FeedItem = styled.div`
+  padding: 0.5rem;
   border: 1px solid #8d919b;
   border-radius: 5px;
-  padding: 1rem;
 
   &.light {
     background-color: #f6f6f6;
@@ -100,7 +102,7 @@ const Details = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   font-size: smaller;
 `;
 
@@ -120,4 +122,11 @@ const DetailText = styled.p`
   &.dark {
     color: #a7a9af;
   }
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 `;
