@@ -33,6 +33,11 @@ export type Query = {
 };
 
 
+export type QueryStoriesArgs = {
+  storyType: Scalars['String'];
+};
+
+
 export type QueryStoryArgs = {
   id: Scalars['ID'];
 };
@@ -164,7 +169,7 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType>;
+  stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
 

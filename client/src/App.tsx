@@ -1,7 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { PageLoading } from "@/components";
 import { AppRoutes } from "@/routes";
-
 import { CustomProvider } from "rsuite";
 import { useAppSelector } from "./redux/hooks";
 

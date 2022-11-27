@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,114 +15,61 @@ export type Scalars = {
 };
 
 export type Comment = {
-  __typename?: "Comment";
-  by?: Maybe<Scalars["String"]>;
-  id: Scalars["ID"];
-  kids?: Maybe<Array<Scalars["Int"]>>;
-  parent?: Maybe<Scalars["Int"]>;
-  text?: Maybe<Scalars["String"]>;
-  time?: Maybe<Scalars["Int"]>;
-  type?: Maybe<Scalars["String"]>;
+  __typename?: 'Comment';
+  by?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  kids?: Maybe<Array<Scalars['Int']>>;
+  parent?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  time?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   stories: Array<Story>;
   story?: Maybe<Story>;
 };
 
+
+export type QueryStoriesArgs = {
+  storyType: Scalars['String'];
+};
+
+
 export type QueryStoryArgs = {
-  storyId: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type Story = {
-  __typename?: "Story";
+  __typename?: 'Story';
   by: User;
-  descendants?: Maybe<Scalars["Int"]>;
-  id: Scalars["ID"];
+  descendants?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
   kids?: Maybe<Array<Comment>>;
-  score?: Maybe<Scalars["Int"]>;
-  time?: Maybe<Scalars["Int"]>;
-  title: Scalars["String"];
-  type: Scalars["String"];
-  url?: Maybe<Scalars["String"]>;
+  score?: Maybe<Scalars['Int']>;
+  time?: Maybe<Scalars['Int']>;
+  title: Scalars['String'];
+  type: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export type User = {
-  __typename?: "User";
-  about?: Maybe<Scalars["String"]>;
-  created?: Maybe<Scalars["Int"]>;
-  delay?: Maybe<Scalars["Int"]>;
-  id: Scalars["ID"];
-  karma?: Maybe<Scalars["Int"]>;
-  submitted?: Maybe<Array<Scalars["Int"]>>;
+  __typename?: 'User';
+  about?: Maybe<Scalars['String']>;
+  created?: Maybe<Scalars['Int']>;
+  delay?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  karma?: Maybe<Scalars['Int']>;
+  submitted?: Maybe<Array<Scalars['Int']>>;
 };
 
-export type GetStoriesQueryVariables = Exact<{ [key: string]: never }>;
+export type GetStoriesQueryVariables = Exact<{
+  storyType: Scalars['String'];
+}>;
 
-export type GetStoriesQuery = {
-  __typename?: "Query";
-  stories: Array<{
-    __typename?: "Story";
-    id: string;
-    descendants?: number | null;
-    score?: number | null;
-    time?: number | null;
-    title: string;
-    type: string;
-    url?: string | null;
-    by: { __typename?: "User"; id: string };
-    kids?: Array<{ __typename?: "Comment"; by?: string | null; text?: string | null }> | null;
-  }>;
-};
 
-export const GetStoriesDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getStories" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "stories" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "descendants" } },
-                { kind: "Field", name: { kind: "Name", value: "score" } },
-                { kind: "Field", name: { kind: "Name", value: "time" } },
-                { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "type" } },
-                { kind: "Field", name: { kind: "Name", value: "url" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "by" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [{ kind: "Field", name: { kind: "Name", value: "id" } }],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "kids" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "by" } },
-                      { kind: "Field", name: { kind: "Name", value: "text" } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetStoriesQuery, GetStoriesQueryVariables>;
+export type GetStoriesQuery = { __typename?: 'Query', stories: Array<{ __typename?: 'Story', id: string, descendants?: number | null, score?: number | null, time?: number | null, title: string, url?: string | null, by: { __typename?: 'User', id: string, karma?: number | null } }> };
+
+
+export const GetStoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"storyType"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"storyType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"storyType"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"by"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"karma"}}]}},{"kind":"Field","name":{"kind":"Name","value":"descendants"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"time"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<GetStoriesQuery, GetStoriesQueryVariables>;

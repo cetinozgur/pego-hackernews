@@ -13,13 +13,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n  query getStories {\n    stories {\n      id\n      descendants\n      score\n      time\n      title\n      type\n      url\n      by {\n        id\n      }\n      kids {\n        by\n        text\n      }\n    }\n  }\n": types.GetStoriesDocument,
+    "\n  query GetStories($storyType: String!) {\n    stories(storyType: $storyType) {\n      id\n      by {\n        id\n        karma\n      }\n      descendants\n      score\n      time\n      title\n      url\n    }\n  }\n": types.GetStoriesDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getStories {\n    stories {\n      id\n      descendants\n      score\n      time\n      title\n      type\n      url\n      by {\n        id\n      }\n      kids {\n        by\n        text\n      }\n    }\n  }\n"): (typeof documents)["\n  query getStories {\n    stories {\n      id\n      descendants\n      score\n      time\n      title\n      type\n      url\n      by {\n        id\n      }\n      kids {\n        by\n        text\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GetStories($storyType: String!) {\n    stories(storyType: $storyType) {\n      id\n      by {\n        id\n        karma\n      }\n      descendants\n      score\n      time\n      title\n      url\n    }\n  }\n"): (typeof documents)["\n  query GetStories($storyType: String!) {\n    stories(storyType: $storyType) {\n      id\n      by {\n        id\n        karma\n      }\n      descendants\n      score\n      time\n      title\n      url\n    }\n  }\n"];
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
