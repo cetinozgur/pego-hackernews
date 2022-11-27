@@ -4,6 +4,7 @@ import { AuthButtons } from "./auth-buttons";
 import { UserMenu } from "./user-menu";
 import { NavLinks } from "./navlinks";
 import { ThemeSwitcher } from "./theme-switcher";
+import { NavLink } from "./navlink";
 
 export const Navbar = () => {
   const { isAuthenticated } = useAuth0();
@@ -11,8 +12,8 @@ export const Navbar = () => {
 
   return (
     <SuiteNavbar style={{ padding: "0 3rem" }}>
-      <Brand>
-        <strong>HACKER NEWS</strong>
+      <Brand as={NavLink} to="/stories/top">
+        <strong style={{ color: "#3498ff" }}>HACKER NEWS</strong>
       </Brand>
       <NavLinks />
       <Nav pullRight>

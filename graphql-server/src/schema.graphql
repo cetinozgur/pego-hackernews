@@ -1,6 +1,6 @@
 type Query {
-  stories: [Story!]!
-  story(storyId: ID!): Story
+  stories(storyType: String!): [Story!]!
+  story(id: ID!): Story
 }
 
 type Story {

@@ -1,5 +1,4 @@
 import { RESTDataSource } from "apollo-datasource-rest";
-import { Story } from "__generated__/resolvers-types";
 
 export class StoryAPI extends RESTDataSource {
   constructor() {
@@ -7,23 +6,27 @@ export class StoryAPI extends RESTDataSource {
     this.baseURL = "https://hacker-news.firebaseio.com/v0/";
   }
 
-  getTopStoryIds() {
-    return this.get("topstories.json");
+  async getStoryIds(type: "top" | "best" | "new" | string) {
+    switch (type) {
+      case "top":
+        console.log("top");
+        return await this.get("topstories.json");
+        break;
+      case "best":
+        return await this.get("beststories.json");
+        break;
+      case "new":
+        return await this.get("newstories.json");
+      default:
+        break;
+    }
   }
 
-  getBestStoryIds() {
-    return this.get("beststories.json");
+  async getItemById(id: any) {
+    return await this.get(`item/${id}.json`);
   }
 
-  getNewStoryIds() {
-    return this.get("newstories.json");
-  }
-
-  async getItemById(storyId: unknown) {
-    return this.get(`item/${storyId}.json`);
-  }
-
-  getUserByName(userId: unknown) {
-    return this.get(`user/${userId}.json`);
+  async getUserByName(id: any) {
+    return await this.get(`user/${id}.json`);
   }
 }

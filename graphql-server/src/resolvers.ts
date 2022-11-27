@@ -2,12 +2,19 @@ import { Resolvers } from "__generated__/resolvers-types";
 
 export const resolvers: Resolvers = {
   Query: {
-    stories: async (_, __, { dataSources }) => {
-      const storyIds = await dataSources.storyApi.getTopStoryIds();
-      return storyIds.slice(0, 20).map((id: number) => dataSources.storyApi.getItemById(id));
+    stories: async (_, { storyType }, { dataSources }) => {
+      const storyIds = await dataSources.storyApi.getStoryIds(storyType);
+      console.log(storyIds);
+
+      const stories = await storyIds
+        .slice(0, 20)
+        .map((id: number) => dataSources.storyApi.getItemById(id));
+
+      return stories;
     },
-    story: (_, { id: storyId }, { dataSources }) => {
-      return dataSources.storyApi.getItemById(storyId);
+    story: (_, { id }, { dataSources }) => {
+      console.log(id);
+      return dataSources.storyApi.getItemById(id);
     },
   },
   Story: {
