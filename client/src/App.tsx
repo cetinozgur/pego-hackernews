@@ -8,9 +8,9 @@ export const App = () => {
   const { user, isAuthenticated, error, isLoading } = useAuth0();
   const theme = useAppSelector((state) => state.theme.value);
 
-  if (isLoading) {
-    return <PageLoading />;
-  }
+  // if (isLoading) {
+  //   return <PageLoading />;
+  // }
 
   console.log("Auth Info:", user, isAuthenticated, error);
 

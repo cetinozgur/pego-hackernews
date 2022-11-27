@@ -18,7 +18,5 @@ export const Feed = ({ type }: { type: string }) => {
     dispatch(setAlert({ type: "error", message: error.message }));
   }
 
-  console.log(data);
-
-  return <p>here i go.</p>;
+  return <p>{JSON.stringify(data)}</p>;
 };
