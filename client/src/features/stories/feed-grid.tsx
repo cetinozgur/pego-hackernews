@@ -11,12 +11,12 @@ export const Feed = ({ type }: { type: string }) => {
   });
 
   if (loading) {
-    return <PageLoading desc="Top stories loading.." />;
+    return <PageLoading desc="Loading Top Stories.." />;
   }
 
   if (error) {
     dispatch(setAlert({ type: "error", message: error.message }));
   }
 
-  return <p>{JSON.stringify(data)}</p>;
+  return <div>{JSON.stringify(data)}</div>;
 };
