@@ -5,17 +5,33 @@ import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Divider } from "rsuite";
 import styled from "styled-components";
-import { Pagination } from "rsuite";
 import { useState } from "react";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 
 export const Feed = ({ type }: { type: string }) => {
   const dispatch = useAppDispatch();
+  const [limit, setLimit] = useState(10);
   const theme = useAppSelector((state) => state.theme.value);
-  const [activePage, setActivePage] = useState(5);
-  const { loading, error, data } = useQuery(GET_STORIES_BY_TYPE, {
-    variables: { storyType: type },
+  const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
+    variables: {
+      offset: 0,
+      limit,
+      storyType: type,
+    },
+    // notifyOnNetworkStatusChange: true,
   });
+
+  const loadMore = () => {
+    const currentLength = data.stories.length;
+    fetchMore({
+      variables: {
+        offset: currentLength,
+        limit,
+      },
+    }).then((fetchMoreResult) => {
+      setLimit(currentLength + fetchMoreResult.data.stories.length);
+    });
+  };
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -28,10 +44,12 @@ export const Feed = ({ type }: { type: string }) => {
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story) => {
+        {data?.stories.map((story: any, index: number) => {
           return (
             <FeedItem key={story.id} className={theme}>
               <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
+                {index + 1}
+                <Divider vertical />
                 {story.title}
               </Title>
               <Details>
@@ -47,19 +65,7 @@ export const Feed = ({ type }: { type: string }) => {
           );
         })}
       </FeedGrid>
-      <PaginationWrapper>
-        <Pagination
-          prev
-          last
-          next
-          first
-          size="md"
-          total={data ? data.stories.length : 0}
-          limit={20}
-          activePage={activePage}
-          onChangePage={setActivePage}
-        />
-      </PaginationWrapper>
+      <LoadMore onClick={loadMore}>LOAD MORE</LoadMore>
     </Container>
   );
 };
@@ -125,9 +131,15 @@ const DetailText = styled.p`
   }
 `;
 
-const PaginationWrapper = styled.div`
+const LoadMore = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  font-size: large;
+  color: #a7a9af;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -31,7 +31,6 @@ function timeDifference(current: any, previous: any) {
 export function timeDifferenceForDate(date: any) {
   const now = new Date().getTime();
   const updated = new Date(date * 1000).getTime();
-  console.log(now, updated);
 
   return timeDifference(now, updated);
 }
