@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Divider, Nav, Stack } from "rsuite";
+import { Nav, Stack } from "rsuite";
 import { NavLink } from "./navlink";
 
 export const NavLinks = () => {
@@ -8,20 +8,20 @@ export const NavLinks = () => {
   return (
     <Nav onSelect={setActiveKey} activeKey={activeKey}>
       <Stack>
-        <Nav.Menu title="Stories">
-          <Nav.Item eventKey="4" as={NavLink} to="/stories/top">
-            Top Stories
-          </Nav.Item>
-          <Nav.Item eventKey="5" as={NavLink} to="/stories/best">
-            Best Stories
-          </Nav.Item>
-          <Nav.Item eventKey="6" as={NavLink} to="/stories/new">
-            New Stories
-          </Nav.Item>
-        </Nav.Menu>
-        <Divider vertical />
+        {/* <Nav.Menu title="Stories"> */}
+        <Nav.Item eventKey="4" as={NavLink} to="/stories/top">
+          Top Stories
+        </Nav.Item>
+        <Nav.Item eventKey="5" as={NavLink} to="/stories/best">
+          Best Stories
+        </Nav.Item>
+        <Nav.Item eventKey="6" as={NavLink} to="/stories/new">
+          New Stories
+        </Nav.Item>
+        {/* </Nav.Menu>
+        <Divider vertical /> */}
 
-        <Nav.Item eventKey="1" as={NavLink} to="/stories/ask">
+        {/* <Nav.Item eventKey="1" as={NavLink} to="/stories/ask">
           Ask
         </Nav.Item>
         <Nav.Item eventKey="2" as={NavLink} to="/stories/show">
@@ -29,7 +29,7 @@ export const NavLinks = () => {
         </Nav.Item>
         <Nav.Item eventKey="3" as={NavLink} to="/stories/job">
           Job
-        </Nav.Item>
+        </Nav.Item> */}
       </Stack>
     </Nav>
   );
