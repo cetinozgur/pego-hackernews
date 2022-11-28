@@ -1,8 +1,8 @@
-import { graphql } from "@/gql";
+import { gql } from "@apollo/client";
 
-export const GET_STORIES_BY_TYPE = graphql(/* GraphQL */ `
-  query GetStories($storyType: String!) {
-    stories(storyType: $storyType) {
+export const GET_STORIES_BY_TYPE = gql`
+  query GetStories($storyType: String!, $offset: Int, $limit: Int) {
+    stories(storyType: $storyType, offset: $offset, limit: $limit) {
       id
       by {
         id
@@ -15,4 +15,4 @@ export const GET_STORIES_BY_TYPE = graphql(/* GraphQL */ `
       url
     }
   }
-`);
+`;

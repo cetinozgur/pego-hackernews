@@ -34,6 +34,8 @@ export type Query = {
 
 
 export type QueryStoriesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   storyType: Scalars['String'];
 };
 

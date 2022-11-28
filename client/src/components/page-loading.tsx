@@ -1,5 +1,4 @@
 import { IntersectingCirclesSpinner } from "react-epic-spinners";
-import { Stack } from "rsuite";
 import styled from "styled-components";
 
 interface PageLoadingProps {
@@ -11,17 +10,24 @@ interface PageLoadingProps {
 export const PageLoading = ({ color = "#3498ff", size = 50, desc }: PageLoadingProps) => {
   return (
     <Container>
-      <Stack direction="column" spacing={20}>
-        <IntersectingCirclesSpinner color={color} size={size} mar />
-        {desc}
-      </Stack>
+      <IntersectingCirclesSpinner color={color} size={size} />
+      <LoadingText>{desc}</LoadingText>
     </Container>
   );
 };
 
 const Container = styled.div`
-  height: 80vh;
+  /* min-height: calc(100vh - 56px - 56px); */
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #0f131a;
+`;
+
+const LoadingText = styled.p`
+  font-style: oblique;
+  color: gray;
+  margin-top: 2rem;
 `;

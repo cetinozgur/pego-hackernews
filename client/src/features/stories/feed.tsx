@@ -5,19 +5,32 @@ import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Divider } from "rsuite";
 import styled from "styled-components";
-import { Pagination } from "rsuite";
-import { useState } from "react";
+import { timeDifferenceForDate } from "@/utils/time-converter";
 
 export const Feed = ({ type }: { type: string }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.theme.value);
-  const { loading, error, data } = useQuery(GET_STORIES_BY_TYPE, {
-    variables: { storyType: type },
+  const limit = 20;
+  const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
+    variables: {
+      offset: 0,
+      limit,
+      storyType: type,
+    },
   });
-  const [activePage, setActivePage] = useState(5);
+
+  const loadMore = () => {
+    const currentLength = data.stories.length;
+    fetchMore({
+      variables: {
+        offset: currentLength,
+        limit,
+      },
+    });
+  };
 
   if (loading) {
-    return <PageLoading desc="Loading Stories.." />;
+    return <PageLoading desc="loading stories.." />;
   }
 
   if (error) {
@@ -27,10 +40,12 @@ export const Feed = ({ type }: { type: string }) => {
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story) => {
+        {data?.stories.map((story: any, index: number) => {
           return (
-            <FeedItem key={story.id} className={theme}>
+            <FeedItem key={story.title} className={theme}>
               <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
+                {index + 1}
+                <Divider vertical />
                 {story.title}
               </Title>
               <Details>
@@ -38,7 +53,7 @@ export const Feed = ({ type }: { type: string }) => {
                 <Divider vertical />
                 <DetailLink className={theme}>by {story.by.id}</DetailLink>
                 <Divider vertical />
-                <DetailText className={theme}>3 hours ago</DetailText>
+                <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>
                 <Divider vertical />
                 <DetailLink className={theme}>{story.descendants} comments</DetailLink>
               </Details>
@@ -46,27 +61,13 @@ export const Feed = ({ type }: { type: string }) => {
           );
         })}
       </FeedGrid>
-      <Pagination
-        prev
-        last
-        next
-        first
-        size="md"
-        total={data ? data.stories.length : 0}
-        limit={20}
-        activePage={activePage}
-        onChangePage={setActivePage}
-        style={{ marginTop: "1rem" }}
-      />
+      <LoadMore onClick={loadMore}>Load more</LoadMore>
     </Container>
   );
 };
 
-const Container = styled.div`
-  max-height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-`;
+// Styles
+const Container = styled.div``;
 
 const FeedGrid = styled.div`
   display: flex;
@@ -75,9 +76,9 @@ const FeedGrid = styled.div`
 `;
 
 const FeedItem = styled.div`
+  padding: 0.5rem;
   border: 1px solid #8d919b;
   border-radius: 5px;
-  padding: 1rem;
 
   &.light {
     background-color: #f6f6f6;
@@ -90,7 +91,6 @@ const Title = styled.a`
   &.dark {
     color: #ededef;
   }
-
   &.light {
     color: #1a1d24;
   }
@@ -100,7 +100,7 @@ const Details = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   font-size: smaller;
 `;
 
@@ -110,7 +110,6 @@ const DetailLink = styled.a`
   &.dark {
     color: #a7a9af;
   }
-
   &.light {
     color: #6e6e6e;
   }
@@ -119,5 +118,19 @@ const DetailLink = styled.a`
 const DetailText = styled.p`
   &.dark {
     color: #a7a9af;
+  }
+`;
+
+const LoadMore = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  font-size: larger;
+  color: #a7a9af;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
   }
 `;

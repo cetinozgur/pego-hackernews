@@ -15,7 +15,7 @@ export const Navbar = () => {
       <Brand as={NavLink} to="/stories/top">
         <strong style={{ color: "#3498ff" }}>HACKER NEWS</strong>
       </Brand>
-      <NavLinks />
+      {isAuthenticated && <NavLinks />}
       <Nav pullRight>
         <ThemeSwitcher />
       </Nav>

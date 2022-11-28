@@ -2,14 +2,11 @@ import { Resolvers } from "__generated__/resolvers-types";
 
 export const resolvers: Resolvers = {
   Query: {
-    stories: async (_, { storyType }, { dataSources }) => {
+    stories: async (_, { storyType, offset, limit }, { dataSources }) => {
       const storyIds = await dataSources.storyApi.getStoryIds(storyType);
-      console.log(storyIds);
-
       const stories = await storyIds
-        .slice(0, 20)
+        .slice(offset!, offset! + limit!)
         .map((id: number) => dataSources.storyApi.getItemById(id));
-
       return stories;
     },
     story: (_, { id }, { dataSources }) => {

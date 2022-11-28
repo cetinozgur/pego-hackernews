@@ -18,10 +18,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `;
 
 const Content = styled.div`
   padding: 3rem 6rem;
   height: calc(100vh - 56px - 56px);
+  overflow-y: scroll;
 `;

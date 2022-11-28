@@ -8,8 +8,6 @@ import { NavLink } from "./navlink";
 export const UserMenu = () => {
   const { logout, user } = useAuth0();
 
-  console.log(user);
-
   const handleLogout = () => logout();
 
   return (
