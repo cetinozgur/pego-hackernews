@@ -17,13 +17,12 @@ export const PageLoading = ({ color = "#3498ff", size = 50, desc }: PageLoadingP
 };
 
 const Container = styled.div`
-  /* min-height: calc(100vh - 56px - 56px); */
-  min-height: 100%;
+  height: calc(100vh - 56px - 56px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0f131a;
+  background-color: inherit;
 `;
 
 const LoadingText = styled.p`

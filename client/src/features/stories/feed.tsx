@@ -34,7 +34,9 @@ export const Feed = ({ type }: { type: string }) => {
   }
 
   if (error) {
-    dispatch(setAlert({ type: "error", message: error.message }));
+    dispatch(
+      setAlert({ type: "error", message: `Internal server error. Details: ${error.message}` })
+    );
   }
 
   return (
@@ -128,9 +130,9 @@ const LoadMore = styled.a`
   margin-top: 2rem;
   font-size: larger;
   color: #a7a9af;
+  text-decoration: underline;
 
   &:hover {
     cursor: pointer;
-    text-decoration: none;
   }
 `;

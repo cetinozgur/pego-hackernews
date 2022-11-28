@@ -17,6 +17,7 @@ export const themeSlice = createSlice({
   initialState,
   reducers: {
     switchTheme: (_state, action: PayloadAction<ThemeState>) => {
+      localStorage.setItem("theme", action.payload.value);
       return action.payload;
     },
   },
