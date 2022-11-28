@@ -12,7 +12,6 @@ export const App = () => {
   const { user, isLoading, error } = useAuth0();
   const dispatch = useDispatch();
   const theme = useAppSelector((state) => state.theme.value);
-  console.log(theme);
 
   useEffect(() => {
     const selectedTheme = localStorage.getItem("theme");

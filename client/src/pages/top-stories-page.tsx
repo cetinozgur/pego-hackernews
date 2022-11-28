@@ -1,5 +1,12 @@
 import { Feed } from "@/features/stories/feed";
+import { FeedTitle } from "@/features/stories/feed-title";
+import { Fragment } from "react";
 
 export const TopStoriesPage = () => {
-  return <Feed type="top" />;
+  return (
+    <>
+      <FeedTitle title="Top Stories" />
+      <Feed type="top" />;
+    </>
+  );
 };
