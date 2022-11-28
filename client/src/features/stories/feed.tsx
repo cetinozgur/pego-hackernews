@@ -5,20 +5,18 @@ import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Divider } from "rsuite";
 import styled from "styled-components";
-import { useState } from "react";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 
 export const Feed = ({ type }: { type: string }) => {
   const dispatch = useAppDispatch();
-  const [limit, setLimit] = useState(10);
   const theme = useAppSelector((state) => state.theme.value);
+  const limit = 20;
   const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
     variables: {
       offset: 0,
       limit,
       storyType: type,
     },
-    // notifyOnNetworkStatusChange: true,
   });
 
   const loadMore = () => {
@@ -28,8 +26,6 @@ export const Feed = ({ type }: { type: string }) => {
         offset: currentLength,
         limit,
       },
-    }).then((fetchMoreResult) => {
-      setLimit(currentLength + fetchMoreResult.data.stories.length);
     });
   };
 
@@ -46,7 +42,7 @@ export const Feed = ({ type }: { type: string }) => {
       <FeedGrid>
         {data?.stories.map((story: any, index: number) => {
           return (
-            <FeedItem key={story.id} className={theme}>
+            <FeedItem key={story.title} className={theme}>
               <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
                 {index + 1}
                 <Divider vertical />
@@ -65,17 +61,13 @@ export const Feed = ({ type }: { type: string }) => {
           );
         })}
       </FeedGrid>
-      <LoadMore onClick={loadMore}>LOAD MORE</LoadMore>
+      <LoadMore onClick={loadMore}>Load more</LoadMore>
     </Container>
   );
 };
 
 // Styles
-const Container = styled.div`
-  /* overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 100%; */
-`;
+const Container = styled.div``;
 
 const FeedGrid = styled.div`
   display: flex;
@@ -99,7 +91,6 @@ const Title = styled.a`
   &.dark {
     color: #ededef;
   }
-
   &.light {
     color: #1a1d24;
   }
@@ -119,7 +110,6 @@ const DetailLink = styled.a`
   &.dark {
     color: #a7a9af;
   }
-
   &.light {
     color: #6e6e6e;
   }
@@ -136,10 +126,11 @@ const LoadMore = styled.a`
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
-  font-size: large;
+  font-size: larger;
   color: #a7a9af;
 
   &:hover {
     cursor: pointer;
+    text-decoration: none;
   }
 `;
