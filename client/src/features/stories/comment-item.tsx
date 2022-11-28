@@ -3,7 +3,6 @@ import type { Comment as CommentType } from "@/gql/graphql";
 import { useAppSelector } from "@/redux/hooks";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 import styled from "styled-components";
-import { cp } from "fs";
 
 interface CommentItemProps {
   comment: CommentType;
@@ -33,7 +32,6 @@ const Container = styled.div`
   border-top: 1px solid #8d919b;
   border-radius: 5px;
   font-size: smaller;
-  /* margin-top: 1rem; */
 
   &.light {
     background-color: #f6f6f6;

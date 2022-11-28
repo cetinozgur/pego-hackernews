@@ -14,6 +14,7 @@ interface FeedItemProps {
 export const FeedItem = ({ story, index }: FeedItemProps) => {
   const theme = useAppSelector((state) => state.theme.value);
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
+  console.log(showCommentsForId);
 
   const handleComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);

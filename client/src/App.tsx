@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { switchTheme } from "./redux/theme-slice";
 
 export const App = () => {
-  const { user, isLoading, error } = useAuth0();
+  const { isLoading, error } = useAuth0();
   const dispatch = useDispatch();
   const theme = useAppSelector((state) => state.theme.value);
 

@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { graphql } from "@/gql";
 
 export const GET_STORIES_BY_TYPE = gql`
   query GetStoriesByType($storyType: String!, $offset: Int, $limit: Int) {

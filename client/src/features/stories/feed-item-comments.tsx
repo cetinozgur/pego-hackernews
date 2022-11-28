@@ -32,8 +32,6 @@ export const FeedItemComments = ({ storyId }: FeedItemCommentsProps) => {
     );
   }
 
-  console.log(data);
-
   return (
     <CommentGrid>
       {data?.comments.map((comment: CommentType) => {
