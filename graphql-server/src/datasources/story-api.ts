@@ -9,7 +9,6 @@ export class StoryAPI extends RESTDataSource {
   async getStoryIds(type: "top" | "best" | "new" | string) {
     switch (type) {
       case "top":
-        console.log("top");
         return await this.get("topstories.json");
         break;
       case "best":
