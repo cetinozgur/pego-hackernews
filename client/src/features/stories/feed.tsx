@@ -2,15 +2,14 @@ import { PageLoading } from "@/components";
 import { useQuery } from "@apollo/client";
 import { GET_STORIES_BY_TYPE } from "./queries";
 import { setAlert } from "@/redux/alert-slice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Divider } from "rsuite";
+import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";
-import { timeDifferenceForDate } from "@/utils/time-converter";
+import { FeedItem } from "./feed-item";
+import type { Story as StoryType } from "@/gql/graphql";
 
 export const Feed = ({ type }: { type: string }) => {
+  const limit = 20; // pagination limit
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.theme.value);
-  const limit = 20;
   const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
     variables: {
       offset: 0,
@@ -18,6 +17,19 @@ export const Feed = ({ type }: { type: string }) => {
       storyType: type,
     },
   });
+
+  if (loading) {
+    return <PageLoading desc="loading stories.." />;
+  }
+
+  if (error) {
+    dispatch(
+      setAlert({
+        type: "error",
+        message: `Can't load the stories at the moment. Details: ${error.message}`,
+      })
+    );
+  }
 
   const loadMore = () => {
     const currentLength = data.stories.length;
@@ -29,38 +41,11 @@ export const Feed = ({ type }: { type: string }) => {
     });
   };
 
-  if (loading) {
-    return <PageLoading desc="loading stories.." />;
-  }
-
-  if (error) {
-    dispatch(
-      setAlert({ type: "error", message: `Internal server error. Details: ${error.message}` })
-    );
-  }
-
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story: any, index: number) => {
-          return (
-            <FeedItem key={story.title} className={theme}>
-              <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
-                {index + 1}
-                <Divider vertical />
-                {story.title}
-              </Title>
-              <Details>
-                <DetailText className={theme}>{story.score} likes</DetailText>
-                <Divider vertical />
-                <DetailLink className={theme}>by {story.by.id}</DetailLink>
-                <Divider vertical />
-                <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>
-                <Divider vertical />
-                <DetailLink className={theme}>{story.descendants} comments</DetailLink>
-              </Details>
-            </FeedItem>
-          );
+        {data?.stories.map((story: StoryType, index: number) => {
+          return <FeedItem story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
       <LoadMore onClick={loadMore}>Load more</LoadMore>
@@ -75,52 +60,6 @@ const FeedGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-`;
-
-const FeedItem = styled.div`
-  padding: 0.5rem;
-  border: 1px solid #8d919b;
-  border-radius: 5px;
-
-  &.light {
-    background-color: #f6f6f6;
-  }
-`;
-
-const Title = styled.a`
-  cursor: pointer;
-
-  &.dark {
-    color: #ededef;
-  }
-  &.light {
-    color: #1a1d24;
-  }
-`;
-
-const Details = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: smaller;
-`;
-
-const DetailLink = styled.a`
-  cursor: pointer;
-
-  &.dark {
-    color: #a7a9af;
-  }
-  &.light {
-    color: #6e6e6e;
-  }
-`;
-
-const DetailText = styled.p`
-  &.dark {
-    color: #a7a9af;
-  }
 `;
 
 const LoadMore = styled.a`

@@ -6,7 +6,7 @@ export const TopStoriesPage = () => {
   return (
     <>
       <FeedTitle title="Top Stories" />
-      <Feed type="top" />;
+      <Feed type="top" />
     </>
   );
 };
