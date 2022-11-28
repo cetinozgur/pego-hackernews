@@ -1,6 +1,7 @@
 type Query {
   stories(offset: Int, limit: Int, storyType: String!): [Story!]!
   story(id: ID!): Story
+  comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
 }
 
 type Story {
@@ -29,8 +30,8 @@ type Comment {
   # Comments can be removed, in that case the user gets null!
   by: String
   kids: [Int!]
-  parent: Int
+  parent: Int!
   text: String
-  time: Int
+  time: Int!
   type: String
 }

@@ -15,7 +15,7 @@ export const ThemeSwitcher = () => {
   return (
     <Nav.Item style={{ padding: 10 }}>
       <IconButton
-        icon={theme === "light" ? <StyledSunIcon /> : <StyledMoonIcon />}
+        icon={theme === "dark" ? <StyledSunIcon /> : <StyledMoonIcon />}
         onClick={setTheme}
       />
     </Nav.Item>

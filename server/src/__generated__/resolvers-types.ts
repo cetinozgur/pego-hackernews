@@ -20,16 +20,24 @@ export type Comment = {
   by?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   kids?: Maybe<Array<Scalars['Int']>>;
-  parent?: Maybe<Scalars['Int']>;
+  parent: Scalars['Int'];
   text?: Maybe<Scalars['String']>;
-  time?: Maybe<Scalars['Int']>;
+  time: Scalars['Int'];
   type?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  comments?: Maybe<Array<Comment>>;
   stories: Array<Story>;
   story?: Maybe<Story>;
+};
+
+
+export type QueryCommentsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  storyId: Scalars['ID'];
 };
 
 
@@ -163,14 +171,15 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
   by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
-  parent?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  parent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  time?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  time?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;

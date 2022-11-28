@@ -25,6 +25,11 @@ export class StoryAPI extends RESTDataSource {
     return await this.get(`item/${id}.json`);
   }
 
+  async getItemCommentIds(id: any) {
+    const item = await this.get(`item/${id}.json`);
+    return item.kids;
+  }
+
   async getUserByName(id: any) {
     return await this.get(`user/${id}.json`);
   }

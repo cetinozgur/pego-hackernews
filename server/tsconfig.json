@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6"],
-    "target": "ES6",
+    "target": "ES2018",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "./build",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "lib": ["esnext"],
+    "strict": true,
+    "rootDir": ".",
+    "outDir": "dist",
     "sourceMap": true,
-    "esModuleInterop": true
-  },
-  "include": ["src"],
-  "extends": "./tsconfig.paths.json"
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "baseUrl": "src"
+  }
 }

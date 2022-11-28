@@ -5,21 +5,35 @@ import { useAppSelector } from "./redux/hooks";
 import { useDispatch } from "react-redux";
 import { setAlert } from "./redux/alert-slice";
 import { Layout, PageLoading } from "./components";
+import { useEffect } from "react";
+import { switchTheme } from "./redux/theme-slice";
 
 export const App = () => {
-  const { user, isLoading, error } = useAuth0();
+  const { isLoading, error } = useAuth0();
   const dispatch = useDispatch();
   const theme = useAppSelector((state) => state.theme.value);
 
-  console.log("Auth Info:", user);
+  useEffect(() => {
+    const selectedTheme = localStorage.getItem("theme");
+
+    if (selectedTheme === "dark" || selectedTheme === "light") {
+      dispatch(switchTheme({ value: selectedTheme }));
+    }
+  }, []);
 
   if (error) {
-    dispatch(setAlert({ type: "error", message: "error.message" }));
+    dispatch(setAlert({ type: "error", message: "Authorization error" }));
   }
 
   return (
     <CustomProvider theme={theme}>
-      <Layout>{isLoading ? <PageLoading /> : <AppRoutes />}</Layout>
+      {isLoading ? (
+        <PageLoading />
+      ) : (
+        <Layout>
+          <AppRoutes />
+        </Layout>
+      )}
     </CustomProvider>
   );
 };

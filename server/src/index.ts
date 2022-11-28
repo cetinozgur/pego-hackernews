@@ -1,64 +1,32 @@
-import { notFoundHandler } from "./middleware/notFound.middleware";
-import { errorHandler } from "./middleware/errorHandler.middleware";
-import { validateEnv } from "@/utils/validateEnv";
-import express from "express";
-import bodyParser from "body-parser";
-import morgan from "morgan";
-import cors from "cors";
-import { Response } from "express";
-import { AppDataSource } from "@/data-source";
-import { PORT } from "@/config/port.config";
-import { userRouter } from "@/routes/user.routes";
-import { checkJwt } from "@/middleware/auth0.middleware";
-import { CLIENT_ORIGIN_URL } from "./config/auth.config";
-import helmet from "helmet";
+import { StoryAPI } from "./datasources/story-api";
+import { ApolloServer } from "apollo-server";
+import { resolvers } from "./resolvers";
+import { readFileSync } from "fs";
 
-AppDataSource.initialize()
-  // eslint-disable-next-line @typescript-eslint/require-await
-  .then(async () => {
-    validateEnv(); // validates env variables on start
+// Read .graphql extension
+const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
 
-    const app = express(); // initialize express server
+// Context safety, required for generating the resolver types
+export interface MyContext {
+  dataSources: {
+    storyApi: StoryAPI;
+  };
+}
 
-    // Middlewares
-    app.use(morgan("dev"));
-    app.use(bodyParser.json());
-    app.use(
-      cors({
-        origin: CLIENT_ORIGIN_URL,
-      })
-    );
-    app.use(
-      helmet({
-        hsts: {
-          maxAge: 31536000,
-        },
-        contentSecurityPolicy: {
-          useDefaults: false,
-          directives: {
-            "default-src": ["'none'"],
-            "frame-ancestors": ["'none'"],
-          },
-        },
-        frameguard: {
-          action: "deny",
-        },
-      })
-    );
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  csrfPrevention: true,
+  cache: "bounded",
+  dataSources: () => {
+    return {
+      storyApi: new StoryAPI(),
+    };
+  },
+});
 
-    // Routes
-    app.use("/api/users", checkJwt, userRouter);
+const port = 4000;
 
-    // Error handler middlewares
-    app.all("*", notFoundHandler);
-    app.use(errorHandler);
-
-    // Health checkers
-    app.get("/api/ping", (_req, res: Response) => {
-      return res.status(200).send("ping");
-    });
-
-    app.listen(PORT);
-    console.log(`Server has started on port ${PORT}`);
-  })
-  .catch((error) => console.log(error));
+server.listen({ port }).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});

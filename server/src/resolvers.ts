@@ -10,8 +10,13 @@ export const resolvers: Resolvers = {
       return stories;
     },
     story: (_, { id }, { dataSources }) => {
-      console.log(id);
       return dataSources.storyApi.getItemById(id);
+    },
+    comments: async (_, { storyId }, { dataSources }) => {
+      const commentIds = await dataSources.storyApi.getItemCommentIds(storyId);
+
+      const comments = await commentIds.map((id: number) => dataSources.storyApi.getItemById(id));
+      return comments;
     },
   },
   Story: {
