@@ -1,3 +1,4 @@
+import { HackernewsDB } from "./datasources/db";
 import { Resolvers } from "__generated__/resolvers-types";
 
 export const resolvers: Resolvers = {
@@ -20,11 +21,35 @@ export const resolvers: Resolvers = {
       return comments;
     },
     getFavsOfUsers: async (_, { userEmail }, { dataSources }) => {
-      return ["1", "2", "3"];
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      await db.connect();
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      await db.disconnect();
+
+      const storyIds = result?.favorites || [];
+
+      return storyIds.map((id: string) => dataSources.hackernewsApi.getItemById(id));
     },
   },
   Mutation: {
     addToFav: async (_, { userEmail, storyId }, { dataSources }) => {
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      await db.connect();
+
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      if (result)
+        await db.favorites.updateOne(
+          { email: userEmail },
+          { email: result.email, favorites: [...result.favorites, storyId] }
+        );
+      else await db.favorites.create({ email: userEmail, favorites: [storyId] });
+
+      await db.disconnect();
+
       return "success";
     },
   },

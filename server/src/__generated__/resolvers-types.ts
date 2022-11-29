@@ -40,7 +40,7 @@ export type MutationAddToFavArgs = {
 export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Comment>>;
-  getFavsOfUsers?: Maybe<Array<Scalars['String']>>;
+  getFavsOfUsers?: Maybe<Array<Story>>;
   stories: Array<Story>;
   story?: Maybe<Story>;
 };
@@ -203,7 +203,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
-  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userEmail'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userEmail'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
