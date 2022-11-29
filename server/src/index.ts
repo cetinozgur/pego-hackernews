@@ -1,4 +1,4 @@
-import { StoryAPI } from "./datasources/story-api";
+import { HackernewsAPI } from "./datasources/hackernews-api";
 import { ApolloServer } from "apollo-server";
 import { resolvers } from "./resolvers";
 import { readFileSync } from "fs";
@@ -9,7 +9,7 @@ const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
 // Context safety, required for generating the resolver types
 export interface MyContext {
   dataSources: {
-    storyApi: StoryAPI;
+    hackernewsApi: HackernewsAPI;
   };
 }
 
@@ -20,7 +20,7 @@ const server = new ApolloServer({
   cache: "bounded",
   dataSources: () => {
     return {
-      storyApi: new StoryAPI(),
+      hackernewsApi: new HackernewsAPI(),
     };
   },
 });

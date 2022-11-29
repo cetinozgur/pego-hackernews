@@ -30,6 +30,7 @@ export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Comment>>;
   stories: Array<Story>;
+  storiesByUser?: Maybe<Array<Story>>;
   story?: Maybe<Story>;
 };
 
@@ -45,6 +46,13 @@ export type QueryStoriesArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   storyType: Scalars['String'];
+};
+
+
+export type QueryStoriesByUserArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  userId: Scalars['ID'];
 };
 
 
@@ -181,6 +189,7 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
+  storiesByUser?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryStoriesByUserArgs, 'userId'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
 

@@ -2,6 +2,7 @@ type Query {
   stories(offset: Int, limit: Int, storyType: String!): [Story!]!
   story(id: ID!): Story
   comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
+  storiesByUser(userId: ID!, offset: Int, limit: Int): [Story!]
 }
 
 type Story {

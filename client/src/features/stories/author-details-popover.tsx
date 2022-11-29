@@ -37,6 +37,7 @@ export const AuthorDetailsPopover = ({ children, user }: AuthorDetailsPopoverPro
             <span>Submitted stories:</span>
             {user.submitted?.length}
           </p>
+          <p></p>
         </>
       )}
     </StyledPopover>
@@ -52,6 +53,7 @@ export const AuthorDetailsPopover = ({ children, user }: AuthorDetailsPopoverPro
 const StyledPopover = styled(Popover)`
   padding: 1rem;
   width: 400px;
+  overflow-y: auto;
 
   p {
     word-wrap: break-word;
@@ -65,5 +67,11 @@ const StyledPopover = styled(Popover)`
 
   i {
     margin-top: 2rem;
+  }
+
+  a {
+    cursor: pointer;
+    margin-top: 2rem;
+    font-size: larger;
   }
 `;

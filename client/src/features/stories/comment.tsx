@@ -4,7 +4,7 @@ import { timeDifferenceForDate } from "@/utils/time-converter";
 import styled from "styled-components";
 import { AuthorDetailsPopover } from "./author-details-popover";
 
-export const CommentItem = ({ comment }: any) => {
+export const Comment = ({ comment }: any) => {
   const theme = useAppSelector((state) => state.theme.value);
 
   return (
