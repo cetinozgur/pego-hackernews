@@ -20,39 +20,6 @@ export const resolvers: Resolvers = {
       return comments;
     },
   },
-  Mutation: {
-    addToFav: async (_, { userEmail, storyId }, { dataSources }) => {
-      const user = await dataSources.userApi.user.findFirst({
-        where: {
-          email: userEmail,
-        },
-      });
-      if (user?.favs.includes(storyId)) {
-        return "Already added";
-      } else {
-        const userUpdate = await dataSources.userApi.user.update({
-          where: {
-            id: 1,
-          },
-          data: {
-            favs: {
-              push: storyId,
-            },
-          },
-        });
-      }
-      return "Success";
-    },
-    createUser: async (_, { userEmail }, { dataSources }) => {
-      const newUser = await dataSources.userApi.user.create({
-        data: {
-          email: userEmail,
-          favs: [],
-        },
-      });
-      return "Success";
-    },
-  },
   Story: {
     by: ({ by }, _, { dataSources }, __) => {
       return dataSources.hackernewsApi.getUserById(by);
