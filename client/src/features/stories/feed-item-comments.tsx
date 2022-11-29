@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { CommentItem } from "./comment-item";
-import { GET_COMMENTS_BY_STORY_ID } from "./queries";
+import { Comment } from "./comment";
+import { GET_COMMENTS_BY_STORY_ID } from "../../queries";
 import type { Comment as CommentType } from "@/gql/graphql";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
@@ -19,6 +19,8 @@ export const FeedItemComments = ({ storyId }: FeedItemCommentsProps) => {
       storyId,
     },
   });
+
+  console.log(data);
 
   if (loading) {
     return (
@@ -40,7 +42,7 @@ export const FeedItemComments = ({ storyId }: FeedItemCommentsProps) => {
   return (
     <CommentGrid>
       {data?.comments.map((comment: CommentType) => {
-        return <CommentItem comment={comment} key={comment.id} />;
+        return <Comment comment={comment} key={comment.id} />;
       })}
     </CommentGrid>
   );

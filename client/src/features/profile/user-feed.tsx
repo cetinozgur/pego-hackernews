@@ -1,32 +1,23 @@
 import { PageLoading } from "@/components";
-import { useQuery } from "@apollo/client";
-import { GET_STORIES_BY_TYPE } from "../../queries";
+import { GET_FAVS_OF_USERS } from "@/queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { FeedItem } from "./feed-item";
+import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
 
-export enum FeedType {
-  TOP = "top",
-  BEST = "best",
-  NEW = "new",
-}
-
-interface FeedProps {
-  type: FeedType;
-}
-
-export const Feed = ({ type }: FeedProps) => {
-  const limit = 20; // pagination limit
+export const UserFeed = ({ userEmail }: { userEmail: string }) => {
+  const limit = 20;
   const dispatch = useAppDispatch();
-  const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
+  const { loading, data, error, fetchMore } = useQuery(GET_FAVS_OF_USERS, {
     variables: {
-      offset: 0,
-      limit,
-      storyType: type,
+      userEmail,
     },
   });
+
+  console.log(data);
+  console.log(userEmail);
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -39,8 +30,6 @@ export const Feed = ({ type }: FeedProps) => {
         message: `Can't load the stories at the moment. Details: ${error.message}`,
       })
     );
-
-    return <p>No stories.</p>;
   }
 
   const loadMore = () => {
@@ -56,11 +45,11 @@ export const Feed = ({ type }: FeedProps) => {
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story: StoryType, index: number) => {
+        {data?.getFavsOfUsers.map((story: StoryType, index: number) => {
           return <FeedItem story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
-      {data && <LoadMore onClick={loadMore}>Load more</LoadMore>}
+      <LoadMore onClick={loadMore}>Load more</LoadMore>
     </Container>
   );
 };

@@ -17,7 +17,7 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  by?: Maybe<Scalars['String']>;
+  by?: Maybe<User>;
   id: Scalars['ID'];
   kids?: Maybe<Array<Scalars['Int']>>;
   parent: Scalars['Int'];
@@ -26,9 +26,21 @@ export type Comment = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  addToFav?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationAddToFavArgs = {
+  storyId: Scalars['String'];
+  userEmail: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Comment>>;
+  getFavsOfUsers?: Maybe<Array<Story>>;
   stories: Array<Story>;
   story?: Maybe<Story>;
 };
@@ -38,6 +50,11 @@ export type QueryCommentsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   storyId: Scalars['ID'];
+};
+
+
+export type QueryGetFavsOfUsersArgs = {
+  userEmail: Scalars['String'];
 };
 
 
@@ -60,7 +77,7 @@ export type Story = {
   kids?: Maybe<Array<Comment>>;
   score?: Maybe<Scalars['Int']>;
   time?: Maybe<Scalars['Int']>;
-  title: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
   type: Scalars['String'];
   url?: Maybe<Scalars['String']>;
 };
@@ -149,6 +166,7 @@ export type ResolversTypes = ResolversObject<{
   Comment: ResolverTypeWrapper<Comment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Story: ResolverTypeWrapper<Story>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -161,6 +179,7 @@ export type ResolversParentTypes = ResolversObject<{
   Comment: Comment;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   Story: Story;
   String: Scalars['String'];
@@ -168,7 +187,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type CommentResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
-  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   parent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -178,8 +197,13 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  addToFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationAddToFavArgs, 'storyId' | 'userEmail'>>;
+}>;
+
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userEmail'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
@@ -191,7 +215,7 @@ export type StoryResolvers<ContextType = MyContext, ParentType extends Resolvers
   kids?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   time?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -209,6 +233,7 @@ export type UserResolvers<ContextType = MyContext, ParentType extends ResolversP
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
   Comment?: CommentResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Story?: StoryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

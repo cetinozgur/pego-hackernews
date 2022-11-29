@@ -2,6 +2,11 @@ type Query {
   stories(offset: Int, limit: Int, storyType: String!): [Story!]!
   story(id: ID!): Story
   comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
+  getFavsOfUsers(userEmail: String!): [Story!]
+}
+
+type Mutation {
+  addToFav(userEmail: String!, storyId: String!): String
 }
 
 type Story {
@@ -11,7 +16,7 @@ type Story {
   kids: [Comment!]
   score: Int
   time: Int
-  title: String!
+  title: String
   type: String!
   url: String
 }
@@ -27,8 +32,7 @@ type User {
 
 type Comment {
   id: ID!
-  # Comments can be removed, in that case the user gets null!
-  by: String
+  by: User
   kids: [Int!]
   parent: Int!
   text: String

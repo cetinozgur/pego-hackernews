@@ -6,6 +6,10 @@ import { FeedItemComments } from "./feed-item-comments";
 import { useState } from "react";
 import type { Story as StoryType } from "@/gql/graphql";
 import { AuthorDetailsPopover } from "./author-details-popover";
+import { useMutation } from "@apollo/client";
+import { ADD_TO_FAV } from "@/mutations";
+import { selectTheme } from "@/redux/theme-slice";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface FeedItemProps {
   story: StoryType;
@@ -13,11 +17,17 @@ interface FeedItemProps {
 }
 
 export const FeedItem = ({ story, index }: FeedItemProps) => {
-  const theme = useAppSelector((state) => state.theme.value);
+  const theme = useAppSelector(selectTheme);
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
+  const [addToFav, { data }] = useMutation(ADD_TO_FAV);
+  const { user } = useAuth0();
 
-  const handleComments = (storyId: string) => {
+  const handleShowComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
+  };
+
+  const handleVote = (storyId: string) => {
+    addToFav({ variables: { userEmail: user?.email, storyId } });
   };
 
   return (
@@ -38,7 +48,7 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
         <Divider vertical />
         <DetailLink
           className={theme}
-          onClick={() => handleComments(story.id)}
+          onClick={() => handleShowComments(story.id)}
           style={
             (story.descendants as number) > 0
               ? { pointerEvents: "auto" }
@@ -46,6 +56,10 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
           }
         >
           {showCommentsForId === story.id ? `Hide` : `${story.descendants} comments`}
+        </DetailLink>
+        <Divider vertical />
+        <DetailLink className={theme} onClick={() => handleVote(story.id)}>
+          Add to favorites
         </DetailLink>
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}

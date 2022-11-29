@@ -13,6 +13,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const theme = useAppSelector((state) => state.theme.value);
 
+  // Persist user's theme preference in local storage
   useEffect(() => {
     const selectedTheme = localStorage.getItem("theme");
 
@@ -22,7 +23,7 @@ export const App = () => {
   }, []);
 
   if (error) {
-    dispatch(setAlert({ type: "error", message: "Authorization error" }));
+    dispatch(setAlert({ type: "error", message: `Authorization error. Details:${error.message}` }));
   }
 
   return (

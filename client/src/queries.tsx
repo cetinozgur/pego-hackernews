@@ -27,7 +27,14 @@ export const GET_COMMENTS_BY_STORY_ID = gql`
       id
       text
       time
-      by
+      by {
+        id
+        about
+        created
+        karma
+        delay
+        submitted
+      }
       kids
     }
   }
@@ -42,6 +49,27 @@ export const GET_AUTHOR_DETAILS = gql`
       karma
       delay
       submitted
+    }
+  }
+`;
+
+export const GET_FAVS_OF_USERS = gql`
+  query getFavsOfUsers($userEmail: String!) {
+    getFavsOfUsers(userEmail: $userEmail) {
+      id
+      by {
+        id
+        about
+        created
+        karma
+        delay
+        submitted
+      }
+      descendants
+      score
+      time
+      title
+      url
     }
   }
 `;

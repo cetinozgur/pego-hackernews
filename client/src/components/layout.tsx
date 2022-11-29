@@ -23,5 +23,5 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 3rem 6rem;
   height: calc(100vh - 56px - 56px);
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
