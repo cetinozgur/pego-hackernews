@@ -2,7 +2,6 @@ import { HackernewsAPI } from "./datasources/hackernews-api";
 import { ApolloServer } from "apollo-server";
 import { resolvers } from "./resolvers";
 import { readFileSync } from "fs";
-import { PrismaClient } from "@prisma/client";
 
 // Read .graphql extension
 const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
@@ -11,7 +10,6 @@ const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
 export interface MyContext {
   dataSources: {
     hackernewsApi: HackernewsAPI;
-    userApi: PrismaClient;
   };
 }
 

@@ -19,6 +19,14 @@ export const resolvers: Resolvers = {
       );
       return comments;
     },
+    getFavsOfUsers: async (_, { userId }, { dataSources }) => {
+      return ["1", "2", "3"];
+    },
+  },
+  Mutation: {
+    addToFav: async (_, { userEmail, storyId }, { dataSources }) => {
+      return "success";
+    },
   },
   Story: {
     by: ({ by }, _, { dataSources }, __) => {

@@ -46,6 +46,7 @@ export type MutationCreateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Comment>>;
+  getFavsOfUsers?: Maybe<Array<Scalars['String']>>;
   stories: Array<Story>;
   story?: Maybe<Story>;
 };
@@ -55,6 +56,11 @@ export type QueryCommentsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   storyId: Scalars['ID'];
+};
+
+
+export type QueryGetFavsOfUsersArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -204,6 +210,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userId'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
