@@ -2,16 +2,20 @@ import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const HomePage = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 
   const handleLogin = async () => await loginWithRedirect();
   const handleSignUp = async () => await loginWithRedirect({ creen_hint: "signup" });
 
   return (
     <Container>
-      <span>
-        <a onClick={handleLogin}>Login</a>or<a onClick={handleSignUp}>Sign Up</a> to proceed
-      </span>
+      {isAuthenticated ? (
+        <p>Welcome, {user?.name} </p>
+      ) : (
+        <span>
+          <a onClick={handleLogin}>Login</a>or<a onClick={handleSignUp}>Sign Up</a> to proceed
+        </span>
+      )}
     </Container>
   );
 };

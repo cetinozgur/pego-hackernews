@@ -6,7 +6,11 @@ export const GET_STORIES_BY_TYPE = gql`
       id
       by {
         id
+        about
+        created
         karma
+        delay
+        submitted
       }
       descendants
       score
@@ -25,6 +29,19 @@ export const GET_COMMENTS_BY_STORY_ID = gql`
       time
       by
       kids
+    }
+  }
+`;
+
+export const GET_AUTHOR_DETAILS = gql`
+  query GetAuthorDetails($userId: ID!) {
+    user(id: $userId) {
+      id
+      about
+      created
+      karma
+      delay
+      submitted
     }
   }
 `;

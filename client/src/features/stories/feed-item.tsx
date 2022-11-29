@@ -5,6 +5,7 @@ import { timeDifferenceForDate } from "@/utils/time-converter";
 import { FeedItemComments } from "./feed-item-comments";
 import { useState } from "react";
 import type { Story as StoryType } from "@/gql/graphql";
+import { AuthorDetailsPopover } from "./author-details-popover";
 
 interface FeedItemProps {
   story: StoryType;
@@ -14,14 +15,13 @@ interface FeedItemProps {
 export const FeedItem = ({ story, index }: FeedItemProps) => {
   const theme = useAppSelector((state) => state.theme.value);
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
-  console.log(showCommentsForId);
 
   const handleComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
   };
 
   return (
-    <Container>
+    <Container className={theme}>
       <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
         {index + 1}
         <Divider vertical />
@@ -30,7 +30,9 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
       <Details>
         <DetailText className={theme}>{story.score} likes</DetailText>
         <Divider vertical />
-        <DetailLink className={theme}>by {story.by.id}</DetailLink>
+        <AuthorDetailsPopover user={story.by}>
+          <DetailLink className={theme}>by {story.by.id}</DetailLink>
+        </AuthorDetailsPopover>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>
         <Divider vertical />
@@ -53,12 +55,19 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
 
 // Styles
 const Container = styled.div`
-  padding: 0.5rem;
+  padding: 1rem;
   border: 1px solid #8d919b;
   border-radius: 5px;
 
   &.light {
     background-color: #f6f6f6;
+  }
+  &.dark {
+    background-color: #19191c;
+  }
+
+  &:hover {
+    border-color: #fff;
   }
 `;
 

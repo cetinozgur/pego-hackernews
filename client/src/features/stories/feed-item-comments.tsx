@@ -5,7 +5,8 @@ import { GET_COMMENTS_BY_STORY_ID } from "./queries";
 import type { Comment as CommentType } from "@/gql/graphql";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
-import { IntersectingCirclesSpinner } from "react-epic-spinners";
+import { FingerprintSpinner } from "react-epic-spinners";
+import { Stack } from "rsuite";
 
 interface FeedItemCommentsProps {
   storyId: string;
@@ -20,7 +21,11 @@ export const FeedItemComments = ({ storyId }: FeedItemCommentsProps) => {
   });
 
   if (loading) {
-    <IntersectingCirclesSpinner />;
+    return (
+      <Stack justifyContent="center">
+        <FingerprintSpinner size={40} />
+      </Stack>
+    );
   }
 
   if (error) {

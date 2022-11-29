@@ -16,7 +16,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
       <Text className={theme} dangerouslySetInnerHTML={{ __html: comment.text as string }}></Text>
       <Details>
         <DetailLink className={theme}>
-          by {comment.by ? comment.by : "User doesn't exist anymore."}
+          {comment.by ? `by ${comment.by}` : "User doesn't exist anymore"}
         </DetailLink>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(comment.time)}</DetailText>
@@ -30,7 +30,6 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 const Container = styled.div`
   padding: 2rem;
   border-top: 1px solid #8d919b;
-  border-radius: 5px;
   font-size: smaller;
 
   &.light {
