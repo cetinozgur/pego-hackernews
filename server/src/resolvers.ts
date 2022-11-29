@@ -19,12 +19,16 @@ export const resolvers: Resolvers = {
       );
       return comments;
     },
-    storiesByUser: async (_, { userId, offset, limit }, { dataSources }) => {
-      const { submitted } = await dataSources.hackernewsApi.getUserById(userId);
-      const stories = await submitted
-        .slice(offset!, offset! + limit!)
-        .map((id: number) => dataSources.hackernewsApi.getItemById(id));
-      return stories;
+  },
+  Mutation: {
+    createUser: async (_, { userEmail }, { dataSources }) => {
+      const newUser = await dataSources.userApi.user.create({
+        data: {
+          email: userEmail,
+          favs: [],
+        },
+      });
+      return "Success";
     },
   },
   Story: {

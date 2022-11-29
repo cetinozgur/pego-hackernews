@@ -26,11 +26,27 @@ export type Comment = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  addToFav?: Maybe<Scalars['String']>;
+  createUser?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationAddToFavArgs = {
+  storyId: Scalars['String'];
+  userEmail: Scalars['String'];
+};
+
+
+export type MutationCreateUserArgs = {
+  userEmail: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Comment>>;
   stories: Array<Story>;
-  storiesByUser?: Maybe<Array<Story>>;
   story?: Maybe<Story>;
 };
 
@@ -49,13 +65,6 @@ export type QueryStoriesArgs = {
 };
 
 
-export type QueryStoriesByUserArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  userId: Scalars['ID'];
-};
-
-
 export type QueryStoryArgs = {
   id: Scalars['ID'];
 };
@@ -68,7 +77,7 @@ export type Story = {
   kids?: Maybe<Array<Comment>>;
   score?: Maybe<Scalars['Int']>;
   time?: Maybe<Scalars['Int']>;
-  title: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
   type: Scalars['String'];
   url?: Maybe<Scalars['String']>;
 };
@@ -157,6 +166,7 @@ export type ResolversTypes = ResolversObject<{
   Comment: ResolverTypeWrapper<Comment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Story: ResolverTypeWrapper<Story>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -169,6 +179,7 @@ export type ResolversParentTypes = ResolversObject<{
   Comment: Comment;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   Story: Story;
   String: Scalars['String'];
@@ -186,10 +197,14 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  addToFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationAddToFavArgs, 'storyId' | 'userEmail'>>;
+  createUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'userEmail'>>;
+}>;
+
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
-  storiesByUser?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryStoriesByUserArgs, 'userId'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
 
@@ -200,7 +215,7 @@ export type StoryResolvers<ContextType = MyContext, ParentType extends Resolvers
   kids?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   time?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -218,6 +233,7 @@ export type UserResolvers<ContextType = MyContext, ParentType extends ResolversP
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
   Comment?: CommentResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Story?: StoryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

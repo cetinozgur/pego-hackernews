@@ -2,7 +2,11 @@ type Query {
   stories(offset: Int, limit: Int, storyType: String!): [Story!]!
   story(id: ID!): Story
   comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
-  storiesByUser(userId: ID!, offset: Int, limit: Int): [Story!]
+}
+
+type Mutation {
+  addToFav(userEmail: String!, storyId: String!): String
+  createUser(userEmail: String!): String
 }
 
 type Story {
@@ -12,7 +16,7 @@ type Story {
   kids: [Comment!]
   score: Int
   time: Int
-  title: String!
+  title: String
   type: String!
   url: String
 }

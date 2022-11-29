@@ -1,9 +1,15 @@
-import { StoryAPI } from "./datasources/story-api";
+import { PrismaClient } from "@prisma/client";
+import { HackernewsAPI } from "./datasources/hackernews-api";
 
-export const storyApi = new StoryAPI();
+export const prisma = new PrismaClient();
+export const hackernewsApi = new HackernewsAPI();
 
 export interface Context {
-  dataSources: {
-    storyApi: StoryAPI;
-  };
+  prisma: PrismaClient;
+  hackernewsApi: HackernewsAPI;
 }
+
+export const context: Context = {
+  prisma,
+  hackernewsApi,
+};
