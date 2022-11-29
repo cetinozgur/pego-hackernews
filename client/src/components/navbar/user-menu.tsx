@@ -3,15 +3,13 @@ import { Stack, Nav } from "rsuite";
 import { UserInfo } from "@rsuite/icons";
 import { NavLink } from "./navlink";
 import { useState } from "react";
-import { ProfileDrawer } from "@/features/profile/profile-drawer";
+import { ProfileDrawer } from "@/components/profile-drawer";
 import ExitIcon from "@rsuite/icons/Exit";
 import DocPassIcon from "@rsuite/icons/DocPass";
 
 export const UserMenu = () => {
   const { logout, user } = useAuth0();
   const [isProfileDrawerOpen, setProfileDrawerOpen] = useState<boolean>(false);
-
-  console.log(user);
 
   const handleLogout = () => logout();
   const handleProfileDrawer = () => setProfileDrawerOpen(true);

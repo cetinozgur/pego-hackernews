@@ -1,6 +1,6 @@
 import { PageLoading } from "@/components";
 import { useQuery } from "@apollo/client";
-import { GET_STORIES_BY_TYPE } from "./queries";
+import { GET_STORIES_BY_TYPE } from "../../queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";

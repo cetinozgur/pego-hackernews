@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { Comment } from "./comment";
-import { GET_COMMENTS_BY_STORY_ID } from "./queries";
+import { GET_COMMENTS_BY_STORY_ID } from "../../queries";
 import type { Comment as CommentType } from "@/gql/graphql";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
