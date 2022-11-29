@@ -1,23 +1,21 @@
 import { Divider } from "rsuite";
-import type { Comment as CommentType } from "@/gql/graphql";
 import { useAppSelector } from "@/redux/hooks";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 import styled from "styled-components";
+import { AuthorDetailsPopover } from "./author-details-popover";
 
-interface CommentItemProps {
-  comment: CommentType;
-}
-
-export const CommentItem = ({ comment }: CommentItemProps) => {
+export const CommentItem = ({ comment }: any) => {
   const theme = useAppSelector((state) => state.theme.value);
 
   return (
     <Container>
       <Text className={theme} dangerouslySetInnerHTML={{ __html: comment.text as string }}></Text>
       <Details>
-        <DetailLink className={theme}>
-          {comment.by ? `by ${comment.by}` : "User doesn't exist anymore"}
-        </DetailLink>
+        <AuthorDetailsPopover user={comment.by}>
+          <DetailLink className={theme}>
+            {comment.by ? `by ${comment.by.id}` : "User doesn't exist anymore"}
+          </DetailLink>
+        </AuthorDetailsPopover>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(comment.time)}</DetailText>
         <Divider vertical />

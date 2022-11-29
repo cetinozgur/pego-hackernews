@@ -27,7 +27,14 @@ export const GET_COMMENTS_BY_STORY_ID = gql`
       id
       text
       time
-      by
+      by {
+        id
+        about
+        created
+        karma
+        delay
+        submitted
+      }
       kids
     }
   }
