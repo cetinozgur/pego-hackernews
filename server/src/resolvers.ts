@@ -19,7 +19,7 @@ export const resolvers: Resolvers = {
       );
       return comments;
     },
-    getFavsOfUsers: async (_, { userId }, { dataSources }) => {
+    getFavsOfUsers: async (_, { userEmail }, { dataSources }) => {
       return ["1", "2", "3"];
     },
   },

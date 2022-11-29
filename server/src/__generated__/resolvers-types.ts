@@ -29,17 +29,11 @@ export type Comment = {
 export type Mutation = {
   __typename?: 'Mutation';
   addToFav?: Maybe<Scalars['String']>;
-  createUser?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationAddToFavArgs = {
   storyId: Scalars['String'];
-  userEmail: Scalars['String'];
-};
-
-
-export type MutationCreateUserArgs = {
   userEmail: Scalars['String'];
 };
 
@@ -60,7 +54,7 @@ export type QueryCommentsArgs = {
 
 
 export type QueryGetFavsOfUsersArgs = {
-  userId: Scalars['String'];
+  userEmail: Scalars['String'];
 };
 
 
@@ -205,12 +199,11 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addToFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationAddToFavArgs, 'storyId' | 'userEmail'>>;
-  createUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'userEmail'>>;
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
-  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userId'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userEmail'>>;
   stories?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoriesArgs, 'storyType'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
