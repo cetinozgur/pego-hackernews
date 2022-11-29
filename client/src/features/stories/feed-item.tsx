@@ -16,8 +16,12 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
   const theme = useAppSelector((state) => state.theme.value);
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
 
-  const handleComments = (storyId: string) => {
+  const handleShowComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
+  };
+
+  const handleVote = (storyId: string) => {
+    console.log("voted");
   };
 
   return (
@@ -38,7 +42,7 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
         <Divider vertical />
         <DetailLink
           className={theme}
-          onClick={() => handleComments(story.id)}
+          onClick={() => handleShowComments(story.id)}
           style={
             (story.descendants as number) > 0
               ? { pointerEvents: "auto" }
@@ -46,6 +50,10 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
           }
         >
           {showCommentsForId === story.id ? `Hide` : `${story.descendants} comments`}
+        </DetailLink>
+        <Divider vertical />
+        <DetailLink className={theme} onClick={() => handleVote(story.id)}>
+          Vote
         </DetailLink>
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}
