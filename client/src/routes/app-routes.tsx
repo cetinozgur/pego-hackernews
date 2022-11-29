@@ -13,7 +13,7 @@ export const AppRoutes = () => {
       <Route path="/stories/top" element={<ProtectedRoute component={TopStoriesPage} />} />
       <Route path="/stories/best" element={<ProtectedRoute component={BestStoriesPage} />} />
       <Route path="/stories/new" element={<ProtectedRoute component={NewStoriesPage} />} />
-      <Route path="/favourites" element={<ProtectedRoute component={UserFavouritesPage} />} />
+      <Route path="/favorites" element={<ProtectedRoute component={UserFavouritesPage} />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

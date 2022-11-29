@@ -1,23 +1,23 @@
 import { PageLoading } from "@/components";
-import { GET_USER_FAVS } from "@/queries";
+import { GET_FAVS_OF_USERS } from "@/queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import { useQuery } from "@apollo/client";
-import { type } from "@testing-library/user-event/dist/type";
 import styled from "styled-components";
 import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
 
-export const UserFavFeed = ({ userEmail }: { userEmail: string }) => {
-  const limit = 20; // pagination limit
+export const UserFeed = ({ userEmail }: { userEmail: string }) => {
+  const limit = 20;
   const dispatch = useAppDispatch();
-  const { loading, data, error, fetchMore } = useQuery(GET_USER_FAVS, {
+  const { loading, data, error, fetchMore } = useQuery(GET_FAVS_OF_USERS, {
     variables: {
-      offset: 0,
-      limit,
       userEmail,
     },
   });
+
+  console.log(data);
+  console.log(userEmail);
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -45,7 +45,7 @@ export const UserFavFeed = ({ userEmail }: { userEmail: string }) => {
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story: StoryType, index: number) => {
+        {data?.getFavsOfUsers.map((story: StoryType, index: number) => {
           return <FeedItem story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>

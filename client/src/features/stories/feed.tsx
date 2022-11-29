@@ -14,8 +14,7 @@ export enum FeedType {
 }
 
 interface FeedProps {
-  type?: FeedType;
-  userEmail?: string;
+  type: FeedType;
 }
 
 export const Feed = ({ type }: FeedProps) => {

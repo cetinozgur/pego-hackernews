@@ -59,7 +59,7 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
         </DetailLink>
         <Divider vertical />
         <DetailLink className={theme} onClick={() => handleVote(story.id)}>
-          Vote
+          Add to favorites
         </DetailLink>
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}

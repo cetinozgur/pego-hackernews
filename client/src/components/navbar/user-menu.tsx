@@ -29,7 +29,7 @@ export const UserMenu = () => {
         <Nav.Item icon={<UserInfo />} onClick={handleProfileDrawer}>
           Your profile
         </Nav.Item>
-        <Nav.Item icon={<DocPassIcon />} as={NavLink} to="/favourites">
+        <Nav.Item icon={<DocPassIcon />} as={NavLink} to="/favorites">
           Your favourites
         </Nav.Item>
         <Nav.Item divider />

@@ -53,9 +53,9 @@ export const GET_AUTHOR_DETAILS = gql`
   }
 `;
 
-export const GET_USER_FAVS = gql`
-  query UserFavs($userEmail: String!) {
-    userFavs(userEmail: $userEmail) {
+export const GET_FAVS_OF_USERS = gql`
+  query getFavsOfUsers($userEmail: String!) {
+    getFavsOfUsers(userEmail: $userEmail) {
       id
       by {
         id
