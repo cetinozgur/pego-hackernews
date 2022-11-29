@@ -27,8 +27,7 @@ type User {
 
 type Comment {
   id: ID!
-  # Comments can be removed, in that case the user gets null!
-  by: String
+  by: User
   kids: [Int!]
   parent: Int!
   text: String

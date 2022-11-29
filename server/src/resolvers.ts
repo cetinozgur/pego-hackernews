@@ -14,7 +14,6 @@ export const resolvers: Resolvers = {
     },
     comments: async (_, { storyId }, { dataSources }) => {
       const commentIds = await dataSources.storyApi.getItemCommentIds(storyId);
-
       const comments = await commentIds.map((id: number) => dataSources.storyApi.getItemById(id));
       return comments;
     },
@@ -30,6 +29,11 @@ export const resolvers: Resolvers = {
       } else {
         return [];
       }
+    },
+  },
+  Comment: {
+    by: ({ by }, _, { dataSources }, __) => {
+      return dataSources.storyApi.getUserByName(by);
     },
   },
 };
