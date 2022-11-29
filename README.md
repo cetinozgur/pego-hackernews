@@ -10,14 +10,16 @@ Go to the project directory
   cd pego-hackerbews
 ```
 
-Open two terminals, install the dependencies and run the project with the following commands. You need node & npm installed on your machine. 
+Open two terminals and run the project with the following commands.
 
 Client
+
 ```bash
   cd client && npm install && npm run start
 ```
 
 Server
+
 ```bash
-  cd server && npm run start && npm run dev
+ cd server && npm install && npm run compile & docker-compose up -d
 ```
