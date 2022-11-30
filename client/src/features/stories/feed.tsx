@@ -43,6 +43,7 @@ export const Feed = ({ type }: FeedProps) => {
     return <p>No stories.</p>;
   }
 
+  // Fetches more according to offset & limit
   const loadMore = () => {
     const currentLength = data.stories.length;
     fetchMore({
@@ -57,7 +58,7 @@ export const Feed = ({ type }: FeedProps) => {
     <Container>
       <FeedGrid>
         {data?.stories.map((story: StoryType, index: number) => {
-          return <FeedItem story={story} index={index} key={story.id} />;
+          return <FeedItem isUserFav={true} story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
       {data && <LoadMore onClick={loadMore}>Load more</LoadMore>}

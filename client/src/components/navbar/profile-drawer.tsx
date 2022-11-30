@@ -1,5 +1,6 @@
 import { Drawer, Stack } from "rsuite";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileDrawerProps {
   open: boolean;
@@ -8,6 +9,7 @@ interface ProfileDrawerProps {
 }
 
 export const ProfileDrawer = ({ open, setOpen, user }: ProfileDrawerProps) => {
+  const navigate = useNavigate();
   const { nickname, email, picture } = user;
 
   return (
@@ -17,6 +19,9 @@ export const ProfileDrawer = ({ open, setOpen, user }: ProfileDrawerProps) => {
           <Avatar src={picture} alt="user-profile"></Avatar>
           <h3>{nickname}</h3>
           <h4>{email}</h4>
+          <a style={{ cursor: "pointer" }} onClick={() => navigate("/favorites")}>
+            My favorites
+          </a>
         </Stack>
       </Drawer.Body>
     </Drawer>
