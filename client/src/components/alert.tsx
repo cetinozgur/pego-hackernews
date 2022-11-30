@@ -12,9 +12,8 @@ export const Alert = () => {
         <Message
           showIcon
           type={type}
-          header={type}
           closable
-          onClose={() => setTimeout(() => dispatch(removeAlert()), 5000)}
+          onClose={() => setTimeout(() => dispatch(removeAlert()), 2000)}
         >
           {message}
         </Message>

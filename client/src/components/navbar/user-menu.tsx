@@ -3,7 +3,7 @@ import { Stack, Nav } from "rsuite";
 import { UserInfo } from "@rsuite/icons";
 import { NavLink } from "./navlink";
 import { useState } from "react";
-import { ProfileDrawer } from "@/components/profile-drawer";
+import { ProfileDrawer } from "@/components/navbar/profile-drawer";
 import ExitIcon from "@rsuite/icons/Exit";
 import DocPassIcon from "@rsuite/icons/DocPass";
 

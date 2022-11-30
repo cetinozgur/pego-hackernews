@@ -18,6 +18,12 @@ export const NavLinks = () => {
         <Nav.Item eventKey="6" as={NavLink} to="/stories/new">
           New Stories
         </Nav.Item>
+        <Nav>
+          <Nav.Item eventKey="6" as={NavLink} to="/favorites">
+            Favorites
+          </Nav.Item>
+        </Nav>
+
         {/* </Nav.Menu>
         <Divider vertical /> */}
 

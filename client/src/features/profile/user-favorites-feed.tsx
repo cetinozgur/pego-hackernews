@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
 
-export const UserFeed = ({ userEmail }: { userEmail: string }) => {
+export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
   const limit = 20;
   const dispatch = useAppDispatch();
   const { loading, data, error, fetchMore } = useQuery(GET_FAVS_OF_USERS, {
@@ -15,9 +15,6 @@ export const UserFeed = ({ userEmail }: { userEmail: string }) => {
       userEmail,
     },
   });
-
-  console.log(data);
-  console.log(userEmail);
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -49,7 +46,7 @@ export const UserFeed = ({ userEmail }: { userEmail: string }) => {
           return <FeedItem story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
-      <LoadMore onClick={loadMore}>Load more</LoadMore>
+      {data && <LoadMore onClick={loadMore}>Load more</LoadMore>}
     </Container>
   );
 };

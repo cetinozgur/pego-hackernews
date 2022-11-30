@@ -23,10 +23,11 @@ export const resolvers: Resolvers = {
     getFavsOfUsers: async (_, { userEmail }, { dataSources }) => {
       const db = (dataSources.hackernewsdb = new HackernewsDB());
 
-      await db.connect();
+      db.connect();
+
       const result = await db.favorites.findOne({ email: userEmail });
 
-      await db.disconnect();
+      db.disconnect();
 
       const storyIds = result?.favorites || [];
 
@@ -37,7 +38,7 @@ export const resolvers: Resolvers = {
     addToFav: async (_, { userEmail, storyId }, { dataSources }) => {
       const db = (dataSources.hackernewsdb = new HackernewsDB());
 
-      await db.connect();
+      db.connect();
 
       const result = await db.favorites.findOne({ email: userEmail });
 
@@ -48,7 +49,7 @@ export const resolvers: Resolvers = {
         );
       else await db.favorites.create({ email: userEmail, favorites: [storyId] });
 
-      await db.disconnect();
+      db.disconnect();
 
       return "success";
     },

@@ -1,9 +1,9 @@
-import { Favorite, IFavorite } from "../model/favoriteModel";
+import { Favorite, FavoriteType } from "../model/favoriteModel";
 import * as Mongoose from "mongoose";
 
 export class HackernewsDB {
   database: Mongoose.Connection;
-  favorites: Mongoose.Model<IFavorite, {}, {}, {}, any>;
+  favorites: Mongoose.Model<FavoriteType, {}, {}, {}, any>;
 
   constructor() {
     this.database = Mongoose.connection;

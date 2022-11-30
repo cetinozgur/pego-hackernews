@@ -1,6 +1,6 @@
 import { Divider } from "rsuite";
 import styled from "styled-components";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 import { FeedItemComments } from "./feed-item-comments";
 import { useState } from "react";
@@ -10,24 +10,35 @@ import { useMutation } from "@apollo/client";
 import { ADD_TO_FAV } from "@/mutations";
 import { selectTheme } from "@/redux/theme-slice";
 import { useAuth0 } from "@auth0/auth0-react";
+import { setAlert } from "@/redux/alert-slice";
 
 interface FeedItemProps {
   story: StoryType;
   index: number;
+  isUserFav?: boolean;
 }
 
-export const FeedItem = ({ story, index }: FeedItemProps) => {
+export const FeedItem = ({ story, index, isUserFav }: FeedItemProps) => {
   const theme = useAppSelector(selectTheme);
+  const dispatch = useAppDispatch();
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
-  const [addToFav, { data }] = useMutation(ADD_TO_FAV);
+  const [addToFav] = useMutation(ADD_TO_FAV);
   const { user } = useAuth0();
 
   const handleShowComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
   };
 
-  const handleVote = (storyId: string) => {
-    addToFav({ variables: { userEmail: user?.email, storyId } });
+  const handleVote = async (storyId: string) => {
+    const res = await addToFav({ variables: { userEmail: user?.email, storyId } });
+    if (res.data.addToFav === "success") {
+      dispatch(
+        setAlert({
+          type: "success",
+          message: `Added to your favorites!`,
+        })
+      );
+    }
   };
 
   return (
@@ -57,10 +68,15 @@ export const FeedItem = ({ story, index }: FeedItemProps) => {
         >
           {showCommentsForId === story.id ? `Hide` : `${story.descendants} comments`}
         </DetailLink>
-        <Divider vertical />
-        <DetailLink className={theme} onClick={() => handleVote(story.id)}>
-          Add to favorites
-        </DetailLink>
+        {isUserFav && (
+          <>
+            <Divider vertical />
+
+            <DetailLink className={theme} onClick={() => handleVote(story.id)}>
+              Add to favorites
+            </DetailLink>
+          </>
+        )}
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}
     </Container>
