@@ -17,7 +17,7 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  by: Scalars['String'];
+  by?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   kids?: Maybe<Array<Scalars['Int']>>;
   parent: Scalars['Int'];
@@ -228,7 +228,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type CommentResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   parent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

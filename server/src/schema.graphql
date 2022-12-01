@@ -40,7 +40,7 @@ type User {
 
 type Comment {
   id: ID!
-  by: String!
+  by: String
   kids: [Int!]
   parent: Int!
   text: String

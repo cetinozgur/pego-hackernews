@@ -20,7 +20,7 @@ export const LoadMore = ({ currentFeedLength, totalFeedLength, loadMore }: LoadM
         <p>Remaining: {totalFeedLength - currentFeedLength} </p>
       </Details>
       <Button disabled={!isMore} onClick={loadMore} appearance="ghost">
-        {isMore ? "Load More" : "No more stories to show"}
+        {isMore ? "Load More" : "No stories to show"}
       </Button>
     </Container>
   );
