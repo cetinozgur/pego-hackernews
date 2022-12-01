@@ -3,8 +3,8 @@ import { Resolvers } from "__generated__/resolvers-types";
 
 export const resolvers: Resolvers = {
   Query: {
-    stories: async (_, { storyType, offset, limit }, { dataSources }) => {
-      const storyIds = await dataSources.hackernewsApi.getStoryIdsByType(storyType);
+    feed: async (_, { feedType, offset, limit }, { dataSources }) => {
+      const storyIds = await dataSources.hackernewsApi.getFeedIdsByType(feedType);
       const stories = await storyIds
         .slice(offset!, offset! + limit!)
         .map((id: number) => dataSources.hackernewsApi.getItemById(id));

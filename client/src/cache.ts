@@ -4,8 +4,8 @@ export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        stories: {
-          keyArgs: ["storyType"],
+        feed: {
+          keyArgs: ["feedType"],
           merge(existing, incoming, { args: { offset = 0 } }: { args: any }) {
             const merged = existing ? existing.slice(0) : [];
             for (let i = 0; i < incoming.length; ++i) {

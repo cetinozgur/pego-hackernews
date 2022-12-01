@@ -1,6 +1,6 @@
 import { PageLoading } from "@/components";
 import { useQuery } from "@apollo/client";
-import { GET_STORIES_BY_TYPE } from "../../queries";
+import { GET_FEED_BY_TYPE } from "../../queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";
@@ -20,11 +20,11 @@ interface FeedProps {
 export const Feed = ({ type }: FeedProps) => {
   const limit = 20; // pagination limit
   const dispatch = useAppDispatch();
-  const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
+  const { loading, data, error, fetchMore } = useQuery(GET_FEED_BY_TYPE, {
     variables: {
       offset: 0,
       limit,
-      storyType: type,
+      feedType: type,
     },
   });
 
@@ -45,7 +45,7 @@ export const Feed = ({ type }: FeedProps) => {
 
   // Fetches more according to offset & limit
   const loadMore = () => {
-    const currentLength = data.stories.length;
+    const currentLength = data.feed.length;
     fetchMore({
       variables: {
         offset: currentLength,
@@ -57,7 +57,7 @@ export const Feed = ({ type }: FeedProps) => {
   return (
     <Container>
       <FeedGrid>
-        {data?.stories.map((story: StoryType, index: number) => {
+        {data?.feed.map((story: StoryType, index: number) => {
           return <FeedItem isUserFav={true} story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
