@@ -1,16 +1,12 @@
 import { Divider } from "rsuite";
 import styled from "styled-components";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 import { FeedItemComments } from "./feed-item-comments";
 import { useState } from "react";
 import type { Story as StoryType } from "@/gql/graphql";
 import { AuthorDetailsPopover } from "./author-details-popover";
-import { useMutation } from "@apollo/client";
-import { ADD_TO_FAV } from "@/mutations";
 import { selectTheme } from "@/redux/theme-slice";
-import { useAuth0 } from "@auth0/auth0-react";
-import { setAlert } from "@/redux/alert-slice";
 import { MakeFavoriteButton } from "./make-favorite";
 
 interface FeedItemProps {
@@ -21,25 +17,10 @@ interface FeedItemProps {
 
 export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
   const theme = useAppSelector(selectTheme);
-  const dispatch = useAppDispatch();
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
-  const [addToFav] = useMutation(ADD_TO_FAV);
-  const { user } = useAuth0();
 
   const handleShowComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
-  };
-
-  const handleVote = async (storyId: string) => {
-    const res = await addToFav({ variables: { userEmail: user?.email, storyId } });
-    if (res.data.addToFav === "success") {
-      dispatch(
-        setAlert({
-          type: "success",
-          message: `Added to your favorites!`,
-        })
-      );
-    }
   };
 
   return (
