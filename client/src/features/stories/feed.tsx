@@ -45,6 +45,8 @@ export const Feed = ({ type, userEmail }: FeedProps) => {
   const currentFeedLength = data?.feed.length;
   const feedLength = lengthData?.feedLength;
 
+  // Ids of user's favorites
+
   if (loading) {
     return <PageLoading desc="loading stories.." />;
   }
@@ -70,14 +72,12 @@ export const Feed = ({ type, userEmail }: FeedProps) => {
     });
   };
 
-  console.log(favIds);
-
   return (
     <FeedGrid>
       {data?.feed.map((story: StoryType, index: number) => {
         return (
           <FeedItem
-            isUsersFav={favIds.getIdsOfUsersFavs.includes(story.id)} // check if story is a user's fav
+            isUsersFav={favIds?.getIdsOfUsersFavs?.includes(story.id)} // check if story is a user's fav
             story={story}
             index={index}
             key={story.id}

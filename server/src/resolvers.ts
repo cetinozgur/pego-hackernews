@@ -105,6 +105,30 @@ export const resolvers: Resolvers = {
 
       return "success";
     },
+    removeAllFav: async (_, { userEmail }, { dataSources }) => {
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      db.connect();
+
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      const favIds = result?.favorites;
+
+      favIds?.splice(0, favIds.length);
+
+      if (result) {
+        favIds?.splice(0, favIds.length);
+
+        await db.favorites.updateOne(
+          { email: userEmail },
+          { email: result.email, favorites: favIds }
+        );
+      }
+
+      db.disconnect();
+
+      return "success";
+    },
   },
 
   Story: {

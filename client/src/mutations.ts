@@ -11,3 +11,9 @@ export const REMOVE_FROM_FAV = gql`
     removeFromFav(userEmail: $userEmail, storyId: $storyId)
   }
 `;
+
+export const REMOVE_ALL_FAV = gql`
+  mutation RemoveAllFav($userEmail: String!) {
+    removeAllFav(userEmail: $userEmail)
+  }
+`;

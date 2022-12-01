@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
 import { LoadMore } from "../stories/load-more";
+import { RemoveAllFavorites } from "../stories/remove-all-favs";
 
 export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
   const limit = 10;
@@ -37,7 +38,10 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
         message: `Can't load the stories at the moment.`,
       })
     );
+    console.log(error);
   }
+
+  console.log(data);
 
   const loadMore = () => {
     fetchMore({
@@ -50,9 +54,10 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
 
   return (
     <Container>
+      <RemoveAllFavorites lengthOfFavs={data?.getFavsOfUsers} />
       <FeedGrid>
-        {data?.getFavsOfUsers.map((story: StoryType, index: number) => {
-          return <FeedItem isUsersFav={true} story={story} index={index} key={story.id} />;
+        {data?.getFavsOfUsers?.map((story: StoryType, index: number) => {
+          return story && <FeedItem isUsersFav={true} story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
       {data && (

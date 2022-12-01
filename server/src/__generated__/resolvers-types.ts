@@ -29,12 +29,18 @@ export type Comment = {
 export type Mutation = {
   __typename?: 'Mutation';
   addToFav?: Maybe<Scalars['String']>;
+  removeAllFav?: Maybe<Scalars['String']>;
   removeFromFav?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationAddToFavArgs = {
   storyId: Scalars['String'];
+  userEmail: Scalars['String'];
+};
+
+
+export type MutationRemoveAllFavArgs = {
   userEmail: Scalars['String'];
 };
 
@@ -49,9 +55,9 @@ export type Query = {
   comments?: Maybe<Array<Comment>>;
   feed: Array<Story>;
   feedLength: Scalars['Int'];
-  getFavsOfUsers?: Maybe<Array<Story>>;
+  getFavsOfUsers?: Maybe<Array<Maybe<Story>>>;
   getFavsOfUsersLength: Scalars['Int'];
-  getIdsOfUsersFavs: Array<Scalars['String']>;
+  getIdsOfUsersFavs?: Maybe<Array<Scalars['String']>>;
   story?: Maybe<Story>;
 };
 
@@ -228,6 +234,7 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addToFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationAddToFavArgs, 'storyId' | 'userEmail'>>;
+  removeAllFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationRemoveAllFavArgs, 'userEmail'>>;
   removeFromFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavArgs, 'storyId' | 'userEmail'>>;
 }>;
 
@@ -235,9 +242,9 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   feed?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryFeedArgs, 'feedType' | 'limit' | 'offset'>>;
   feedLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryFeedLengthArgs, 'feedType'>>;
-  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'limit' | 'offset' | 'userEmail'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Story']>>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'limit' | 'offset' | 'userEmail'>>;
   getFavsOfUsersLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryGetFavsOfUsersLengthArgs, 'userEmail'>>;
-  getIdsOfUsersFavs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetIdsOfUsersFavsArgs, 'userEmail'>>;
+  getIdsOfUsersFavs?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType, RequireFields<QueryGetIdsOfUsersFavsArgs, 'userEmail'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
 

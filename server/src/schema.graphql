@@ -2,7 +2,7 @@ type Query {
   feed(offset: Int!, limit: Int!, feedType: String!): [Story!]!
   story(id: ID!): Story
   comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
-  getFavsOfUsers(offset: Int!, limit: Int!, userEmail: String!): [Story!]
+  getFavsOfUsers(offset: Int!, limit: Int!, userEmail: String!): [Story]
   feedLength(feedType: String!): Int!
   getFavsOfUsersLength(userEmail: String!): Int!
   getIdsOfUsersFavs(userEmail: String!): [String!]
@@ -11,6 +11,7 @@ type Query {
 type Mutation {
   addToFav(userEmail: String!, storyId: String!): String
   removeFromFav(userEmail: String!, storyId: String!): String
+  removeAllFav(userEmail: String!): String
 }
 
 type Story {

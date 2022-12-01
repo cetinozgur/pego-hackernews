@@ -15,7 +15,7 @@ export const MakeFavoriteButton = ({ storyId }: MakeFavoriteButtonProps) => {
   const { user } = useAuth0();
   const dispatch = useAppDispatch();
 
-  const handleVote = async (storyId: string) => {
+  const handleFavorite = async (storyId: string) => {
     const res = await addToFav({ variables: { userEmail: user?.email, storyId } });
 
     if (res.data.addToFav === "success") {
@@ -29,7 +29,7 @@ export const MakeFavoriteButton = ({ storyId }: MakeFavoriteButtonProps) => {
   };
 
   return (
-    <StyledButton size="xs" appearance="ghost" onClick={() => handleVote(storyId)}>
+    <StyledButton size="xs" appearance="ghost" onClick={() => handleFavorite(storyId)}>
       Add to Favorites
     </StyledButton>
   );

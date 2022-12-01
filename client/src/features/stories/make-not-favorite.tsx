@@ -18,8 +18,6 @@ export const MakeNotFavoriteButton = ({ storyId }: MakeNotFavoriteButtonProps) =
   const makeNotFavorite = async (storyId: string) => {
     const res = await removeFromFav({ variables: { userEmail: user?.email, storyId } });
 
-    console.log(res);
-
     if (res.data.removeFromFav === "success") {
       dispatch(
         setAlert({
