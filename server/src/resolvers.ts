@@ -82,7 +82,31 @@ export const resolvers: Resolvers = {
 
       return "success";
     },
+    removeFromFav: async (_, { userEmail, storyId }, { dataSources }) => {
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      db.connect();
+
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      const favIds = result?.favorites;
+
+      if (result && favIds?.includes(storyId)) {
+        const indexToRemove = favIds.indexOf(storyId);
+        favIds.splice(indexToRemove, 1);
+
+        await db.favorites.updateOne(
+          { email: userEmail },
+          { email: result.email, favorites: favIds }
+        );
+      }
+
+      db.disconnect();
+
+      return "success";
+    },
   },
+
   Story: {
     by: ({ by }, _, { dataSources }, __) => {
       return dataSources.hackernewsApi.getUserById(by);

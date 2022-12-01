@@ -70,6 +70,8 @@ export const Feed = ({ type, userEmail }: FeedProps) => {
     });
   };
 
+  console.log(favIds);
+
   return (
     <FeedGrid>
       {data?.feed.map((story: StoryType, index: number) => {

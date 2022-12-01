@@ -8,6 +8,7 @@ import type { Story as StoryType } from "@/gql/graphql";
 import { AuthorDetailsPopover } from "./author-details-popover";
 import { selectTheme } from "@/redux/theme-slice";
 import { MakeFavoriteButton } from "./make-favorite";
+import { MakeNotFavoriteButton } from "./make-not-favorite";
 
 interface FeedItemProps {
   story: StoryType;
@@ -51,7 +52,11 @@ export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
           {showCommentsForId === story.id ? `Hide` : `${story.descendants} comments`}
         </DetailLink>
         <Divider vertical />
-        {isUsersFav ? <MakeFavoriteButton storyId={story.id} /> : <p>already fav</p>}
+        {isUsersFav ? (
+          <MakeNotFavoriteButton storyId={story.id} />
+        ) : (
+          <MakeFavoriteButton storyId={story.id} />
+        )}
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}
     </Container>

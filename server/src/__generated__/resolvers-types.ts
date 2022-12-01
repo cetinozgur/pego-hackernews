@@ -29,10 +29,17 @@ export type Comment = {
 export type Mutation = {
   __typename?: 'Mutation';
   addToFav?: Maybe<Scalars['String']>;
+  removeFromFav?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationAddToFavArgs = {
+  storyId: Scalars['String'];
+  userEmail: Scalars['String'];
+};
+
+
+export type MutationRemoveFromFavArgs = {
   storyId: Scalars['String'];
   userEmail: Scalars['String'];
 };
@@ -221,6 +228,7 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addToFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationAddToFavArgs, 'storyId' | 'userEmail'>>;
+  removeFromFav?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavArgs, 'storyId' | 'userEmail'>>;
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
