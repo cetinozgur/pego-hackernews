@@ -18,14 +18,7 @@ export const GET_FAVS_OF_USERS = gql`
   query getFavsOfUsers($offset: Int!, $limit: Int!, $userEmail: String!) {
     getFavsOfUsers(offset: $offset, limit: $limit, userEmail: $userEmail) {
       id
-      by {
-        id
-        about
-        created
-        karma
-        delay
-        submitted
-      }
+      by
       descendants
       score
       time
@@ -70,14 +63,7 @@ export const GET_COMMENTS_BY_STORY_ID = gql`
       id
       text
       time
-      by {
-        id
-        about
-        created
-        karma
-        delay
-        submitted
-      }
+      by
       kids
     }
   }

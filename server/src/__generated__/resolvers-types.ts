@@ -17,7 +17,7 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  by?: Maybe<User>;
+  by: Scalars['String'];
   id: Scalars['ID'];
   kids?: Maybe<Array<Scalars['Int']>>;
   parent: Scalars['Int'];
@@ -110,7 +110,7 @@ export type QueryStoryArgs = {
 
 export type Story = {
   __typename?: 'Story';
-  by: User;
+  by?: Maybe<Scalars['String']>;
   descendants?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   isMoreInTheFeed?: Maybe<Scalars['Boolean']>;
@@ -228,7 +228,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type CommentResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
-  by?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   parent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -256,7 +256,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
 }>;
 
 export type StoryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   descendants?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isMoreInTheFeed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;

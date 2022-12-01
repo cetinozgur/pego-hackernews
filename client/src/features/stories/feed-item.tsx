@@ -28,7 +28,7 @@ export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
   return (
     <Container className={theme}>
       <AuthorDetailsModal
-        authorId={story.by.id}
+        authorId={story.by as string}
         isOpen={isAuthorModalOpen}
         setOpen={setAuthorModalOpen}
       />
@@ -41,7 +41,7 @@ export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
         <DetailText className={theme}>{story.score} likes</DetailText>
         <Divider vertical />
         <DetailLink onClick={() => setAuthorModalOpen(true)} className={theme}>
-          by {story.by.id}
+          by {story.by}
         </DetailLink>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>

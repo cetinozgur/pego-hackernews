@@ -146,9 +146,4 @@ export const resolvers: Resolvers = {
       }
     },
   },
-  Comment: {
-    by: ({ by }, _, { dataSources }, __) => {
-      return dataSources.hackernewsApi.getUserById(by);
-    },
-  },
 };

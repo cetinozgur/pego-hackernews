@@ -12,14 +12,14 @@ export const Comment = ({ comment }: any) => {
   return (
     <Container>
       <AuthorDetailsModal
-        authorId={comment.by.id}
+        authorId={comment.by as string}
         isOpen={isAuthorModalOpen}
         setOpen={setAuthorModalOpen}
       />
       <Text className={theme} dangerouslySetInnerHTML={{ __html: comment.text as string }}></Text>
       <Details>
         <DetailLink onClick={() => setAuthorModalOpen(true)} className={theme}>
-          {comment.by ? `by ${comment.by.id}` : "User doesn't exist anymore"}
+          {comment.by ? `by ${comment.by}` : "User doesn't exist anymore"}
         </DetailLink>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(comment.time)}</DetailText>
