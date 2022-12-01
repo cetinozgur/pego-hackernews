@@ -3,12 +3,16 @@ import { Resolvers } from "__generated__/resolvers-types";
 
 export const resolvers: Resolvers = {
   Query: {
-    stories: async (_, { storyType, offset, limit }, { dataSources }) => {
-      const storyIds = await dataSources.hackernewsApi.getStoryIdsByType(storyType);
+    feed: async (_, { feedType, offset, limit }, { dataSources }) => {
+      const storyIds = await dataSources.hackernewsApi.getFeedIdsByType(feedType);
       const stories = await storyIds
         .slice(offset!, offset! + limit!)
         .map((id: number) => dataSources.hackernewsApi.getItemById(id));
       return stories;
+    },
+    feedLength: async (_, { feedType }, { dataSources }) => {
+      const storyIds = await dataSources.hackernewsApi.getFeedIdsByType(feedType);
+      return storyIds.length;
     },
     story: (_, { id }, { dataSources }) => {
       return dataSources.hackernewsApi.getItemById(id);
@@ -32,6 +36,17 @@ export const resolvers: Resolvers = {
       const storyIds = result?.favorites || [];
 
       return storyIds.map((id: string) => dataSources.hackernewsApi.getItemById(id));
+    },
+    getFavsOfUsersLength: async (_, { userEmail }, { dataSources }) => {
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      db.connect();
+
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      db.disconnect();
+
+      return result?.favorites.length || 0;
     },
   },
   Mutation: {

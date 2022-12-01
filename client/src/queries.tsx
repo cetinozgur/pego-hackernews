@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const GET_STORIES_BY_TYPE = gql`
-  query GetStoriesByType($storyType: String!, $offset: Int, $limit: Int) {
-    stories(storyType: $storyType, offset: $offset, limit: $limit) {
+export const GET_FEED_BY_TYPE = gql`
+  query GetFeedByType($offset: Int!, $limit: Int!, $feedType: String!) {
+    feed(offset: $offset, limit: $limit, feedType: $feedType) {
       id
       by {
         id
@@ -18,6 +18,12 @@ export const GET_STORIES_BY_TYPE = gql`
       title
       url
     }
+  }
+`;
+
+export const GET_FEED_LENGTH_BY_TYPE = gql`
+  query GetFeedLength($feedType: String!) {
+    feedLength(feedType: $feedType)
   }
 `;
 

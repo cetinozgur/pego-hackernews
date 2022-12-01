@@ -1,11 +1,13 @@
 import { PageLoading } from "@/components";
 import { useQuery } from "@apollo/client";
-import { GET_STORIES_BY_TYPE } from "../../queries";
+import { GET_FEED_BY_TYPE, GET_FEED_LENGTH_BY_TYPE } from "../../queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";
 import { FeedItem } from "./feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
+import { Button } from "rsuite";
+import { LoadMore } from "./load-more";
 
 export enum FeedType {
   TOP = "top",
@@ -18,15 +20,22 @@ interface FeedProps {
 }
 
 export const Feed = ({ type }: FeedProps) => {
-  const limit = 20; // pagination limit
+  const limit = 20;
   const dispatch = useAppDispatch();
-  const { loading, data, error, fetchMore } = useQuery(GET_STORIES_BY_TYPE, {
+  const { data: lengthData } = useQuery(GET_FEED_LENGTH_BY_TYPE, {
+    variables: { feedType: type },
+  });
+  const { loading, data, error, fetchMore } = useQuery(GET_FEED_BY_TYPE, {
     variables: {
       offset: 0,
       limit,
-      storyType: type,
+      feedType: type,
     },
   });
+
+  // To keep track of the remainder feed items & setting offset when loading more
+  const currentFeedLength = data?.feed.length;
+  const feedLength = lengthData?.feedLength;
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -43,48 +52,35 @@ export const Feed = ({ type }: FeedProps) => {
     return <p>No stories.</p>;
   }
 
-  // Fetches more according to offset & limit
+  // Fetches more according to offset, limit and current length of extracted data length
   const loadMore = () => {
-    const currentLength = data.stories.length;
     fetchMore({
       variables: {
-        offset: currentLength,
+        offset: currentFeedLength,
         limit,
       },
     });
   };
 
   return (
-    <Container>
-      <FeedGrid>
-        {data?.stories.map((story: StoryType, index: number) => {
-          return <FeedItem isUserFav={true} story={story} index={index} key={story.id} />;
-        })}
-      </FeedGrid>
-      {data && <LoadMore onClick={loadMore}>Load more</LoadMore>}
-    </Container>
+    <FeedGrid>
+      {data?.feed.map((story: StoryType, index: number) => {
+        return <FeedItem isUserFav={true} story={story} index={index} key={story.id} />;
+      })}
+      {data && (
+        <LoadMore
+          totalFeedLength={feedLength}
+          currentFeedLength={currentFeedLength}
+          loadMore={loadMore}
+        />
+      )}
+    </FeedGrid>
   );
 };
 
 // Styles
-const Container = styled.div``;
-
 const FeedGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-`;
-
-const LoadMore = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  font-size: larger;
-  color: #a7a9af;
-  text-decoration: underline;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
