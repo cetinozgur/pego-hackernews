@@ -5,10 +5,10 @@ import { timeDifferenceForDate } from "@/utils/time-converter";
 import { FeedItemComments } from "./feed-item-comments";
 import { useState } from "react";
 import type { Story as StoryType } from "@/gql/graphql";
-import { AuthorDetailsPopover } from "./author-details-popover";
 import { selectTheme } from "@/redux/theme-slice";
 import { MakeFavoriteButton } from "./make-favorite";
 import { MakeNotFavoriteButton } from "./make-not-favorite";
+import { AuthorDetailsModal } from "./author-details-modal";
 
 interface FeedItemProps {
   story: StoryType;
@@ -19,6 +19,7 @@ interface FeedItemProps {
 export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
   const theme = useAppSelector(selectTheme);
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
+  const [isAuthorModalOpen, setAuthorModalOpen] = useState<boolean>(false);
 
   const handleShowComments = (storyId: string) => {
     showCommentsForId === storyId ? setShowCommentsForId("") : setShowCommentsForId(storyId);
@@ -26,6 +27,11 @@ export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
 
   return (
     <Container className={theme}>
+      <AuthorDetailsModal
+        authorId={story.by.id}
+        isOpen={isAuthorModalOpen}
+        setOpen={setAuthorModalOpen}
+      />
       <Title href={story.url ? story.url : "#"} target="_blank" className={theme}>
         {index + 1}
         <Divider vertical />
@@ -34,9 +40,9 @@ export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
       <Details>
         <DetailText className={theme}>{story.score} likes</DetailText>
         <Divider vertical />
-        <AuthorDetailsPopover user={story.by}>
-          <DetailLink className={theme}>by {story.by.id}</DetailLink>
-        </AuthorDetailsPopover>
+        <DetailLink onClick={() => setAuthorModalOpen(true)} className={theme}>
+          by {story.by.id}
+        </DetailLink>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(story.time)}</DetailText>
         <Divider vertical />

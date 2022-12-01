@@ -11,6 +11,10 @@ export const resolvers: Resolvers = {
         .map((id: number) => dataSources.hackernewsApi.getItemById(id));
       return stories;
     },
+    author: async (_, { authorId }, { dataSources }) => {
+      const author = dataSources.hackernewsApi.getUserById(authorId);
+      return author;
+    },
     feedLength: async (_, { feedType }, { dataSources }) => {
       const storyIds = await dataSources.hackernewsApi.getFeedIdsByType(feedType);
       return storyIds.length;
@@ -63,6 +67,7 @@ export const resolvers: Resolvers = {
       return result?.favorites || [];
     },
   },
+
   Mutation: {
     addToFav: async (_, { userEmail, storyId }, { dataSources }) => {
       const db = (dataSources.hackernewsdb = new HackernewsDB());
@@ -132,9 +137,6 @@ export const resolvers: Resolvers = {
   },
 
   Story: {
-    by: ({ by }, _, { dataSources }, __) => {
-      return dataSources.hackernewsApi.getUserById(by);
-    },
     // Gets the top level comment of story
     kids: async ({ kids: commentIds }, _, { dataSources }, __) => {
       if (commentIds && commentIds.length > 0) {

@@ -21,10 +21,6 @@ export class HackernewsAPI extends RESTDataSource {
     }
   }
 
-  // async getContentLengthByType(type:string) {
-
-  // }
-
   async getItemById(id: any) {
     return await this.get(`item/${id}.json`);
   }

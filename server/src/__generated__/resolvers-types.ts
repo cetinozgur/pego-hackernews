@@ -52,6 +52,7 @@ export type MutationRemoveFromFavArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  author?: Maybe<User>;
   comments?: Maybe<Array<Comment>>;
   feed: Array<Story>;
   feedLength: Scalars['Int'];
@@ -59,6 +60,11 @@ export type Query = {
   getFavsOfUsersLength: Scalars['Int'];
   getIdsOfUsersFavs?: Maybe<Array<Scalars['String']>>;
   story?: Maybe<Story>;
+};
+
+
+export type QueryAuthorArgs = {
+  authorId: Scalars['String'];
 };
 
 
@@ -239,6 +245,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryAuthorArgs, 'authorId'>>;
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   feed?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryFeedArgs, 'feedType' | 'limit' | 'offset'>>;
   feedLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryFeedLengthArgs, 'feedType'>>;

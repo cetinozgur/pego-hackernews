@@ -6,6 +6,7 @@ type Query {
   feedLength(feedType: String!): Int!
   getFavsOfUsersLength(userEmail: String!): Int!
   getIdsOfUsersFavs(userEmail: String!): [String!]
+  author(authorId: String!): User
 }
 
 type Mutation {
@@ -16,7 +17,7 @@ type Mutation {
 
 type Story {
   id: ID!
-  by: User!
+  by: String
   descendants: Int
   kids: [Comment!]
   score: Int

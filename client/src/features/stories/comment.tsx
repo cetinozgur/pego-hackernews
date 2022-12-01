@@ -2,20 +2,25 @@ import { Divider } from "rsuite";
 import { useAppSelector } from "@/redux/hooks";
 import { timeDifferenceForDate } from "@/utils/time-converter";
 import styled from "styled-components";
-import { AuthorDetailsPopover } from "./author-details-popover";
+import { AuthorDetailsModal } from "./author-details-modal";
+import { useState } from "react";
 
 export const Comment = ({ comment }: any) => {
   const theme = useAppSelector((state) => state.theme.value);
+  const [isAuthorModalOpen, setAuthorModalOpen] = useState<boolean>(false);
 
   return (
     <Container>
+      <AuthorDetailsModal
+        authorId={comment.by.id}
+        isOpen={isAuthorModalOpen}
+        setOpen={setAuthorModalOpen}
+      />
       <Text className={theme} dangerouslySetInnerHTML={{ __html: comment.text as string }}></Text>
       <Details>
-        <AuthorDetailsPopover user={comment.by}>
-          <DetailLink className={theme}>
-            {comment.by ? `by ${comment.by.id}` : "User doesn't exist anymore"}
-          </DetailLink>
-        </AuthorDetailsPopover>
+        <DetailLink onClick={() => setAuthorModalOpen(true)} className={theme}>
+          {comment.by ? `by ${comment.by.id}` : "User doesn't exist anymore"}
+        </DetailLink>
         <Divider vertical />
         <DetailText className={theme}>{timeDifferenceForDate(comment.time)}</DetailText>
         <Divider vertical />

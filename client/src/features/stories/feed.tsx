@@ -22,11 +22,9 @@ interface FeedProps {
 export const Feed = ({ type, userEmail }: FeedProps) => {
   const limit = 20;
   const dispatch = useAppDispatch();
-  // Get the content length of the required feed type for pagination
   const { data: lengthData } = useQuery(GET_FEED_LENGTH_BY_TYPE, {
     variables: { feedType: type },
   });
-  // Get the feed items by type
   const { loading, data, error, fetchMore } = useQuery(GET_FEED_BY_TYPE, {
     variables: {
       offset: 0,
@@ -44,8 +42,6 @@ export const Feed = ({ type, userEmail }: FeedProps) => {
   // To keep track of the remainder feed items & setting offset when loading more
   const currentFeedLength = data?.feed.length;
   const feedLength = lengthData?.feedLength;
-
-  // Ids of user's favorites
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;

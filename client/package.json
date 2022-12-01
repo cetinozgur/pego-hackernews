@@ -37,7 +37,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "lint": "react-app-rewired eslint './src/**/*.{ts,tsx}'"
+    "lint": "eslint 'src/**/*.ts'"
   },
   "eslintConfig": {
     "extends": [
