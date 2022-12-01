@@ -6,7 +6,6 @@ import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";
 import { FeedItem } from "./feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
-import { Button } from "rsuite";
 import { LoadMore } from "./load-more";
 
 export enum FeedType {
@@ -45,7 +44,7 @@ export const Feed = ({ type }: FeedProps) => {
     dispatch(
       setAlert({
         type: "error",
-        message: `Can't load the stories at the moment. Details: ${error.message}`,
+        message: `Can't load the stories at the moment. Details.`,
       })
     );
 

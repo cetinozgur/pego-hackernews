@@ -1,20 +1,28 @@
 import { PageLoading } from "@/components";
-import { GET_FAVS_OF_USERS } from "@/queries";
+import { GET_FAVS_OF_USERS, GET_USER_FAVS_FEED_LENGTH } from "@/queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
+import { LoadMore } from "../stories/load-more";
 
 export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
   const limit = 20;
   const dispatch = useAppDispatch();
+  const { data: lengthData } = useQuery(GET_USER_FAVS_FEED_LENGTH, {
+    variables: { userEmail },
+  });
   const { loading, data, error, fetchMore } = useQuery(GET_FAVS_OF_USERS, {
     variables: {
       userEmail,
     },
   });
+
+  // To keep track of the remainder feed items & setting offset when loading more
+  const currentFeedLength = data?.getFavsOfUsers.length;
+  const feedLength = lengthData?.getFavsOfUsersLength;
 
   if (loading) {
     return <PageLoading desc="loading stories.." />;
@@ -24,16 +32,15 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
     dispatch(
       setAlert({
         type: "error",
-        message: `Can't load the stories at the moment. Details: ${error.message}`,
+        message: `Can't load the stories at the moment.`,
       })
     );
   }
 
   const loadMore = () => {
-    const currentLength = data.stories.length;
     fetchMore({
       variables: {
-        offset: currentLength,
+        offset: currentFeedLength,
         limit,
       },
     });
@@ -46,7 +53,13 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
           return <FeedItem story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
-      {data && <LoadMore onClick={loadMore}>Load more</LoadMore>}
+      {data && (
+        <LoadMore
+          totalFeedLength={feedLength}
+          currentFeedLength={currentFeedLength}
+          loadMore={loadMore}
+        />
+      )}
     </Container>
   );
 };
@@ -58,18 +71,4 @@ const FeedGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-`;
-
-const LoadMore = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  font-size: larger;
-  color: #a7a9af;
-  text-decoration: underline;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;

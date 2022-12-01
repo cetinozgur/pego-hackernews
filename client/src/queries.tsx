@@ -26,6 +26,11 @@ export const GET_FEED_LENGTH_BY_TYPE = gql`
     feedLength(feedType: $feedType)
   }
 `;
+export const GET_USER_FAVS_FEED_LENGTH = gql`
+  query GetFavsOfUsersLength($userEmail: String!) {
+    getFavsOfUsersLength(userEmail: $userEmail)
+  }
+`;
 
 export const GET_COMMENTS_BY_STORY_ID = gql`
   query GetCommentsByStoryId($storyId: ID!, $limit: Int, $offset: Int) {
