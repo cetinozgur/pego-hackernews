@@ -5,6 +5,7 @@ export const resolvers: Resolvers = {
   Query: {
     feed: async (_, { feedType, offset, limit }, { dataSources }) => {
       const storyIds = await dataSources.hackernewsApi.getFeedIdsByType(feedType);
+
       const stories = await storyIds
         .slice(offset!, offset! + limit!)
         .map((id: number) => dataSources.hackernewsApi.getItemById(id));
@@ -49,6 +50,17 @@ export const resolvers: Resolvers = {
       db.disconnect();
 
       return result?.favorites.length || 0;
+    },
+    getIdsOfUsersFavs: async (_, { userEmail }, { dataSources }) => {
+      const db = (dataSources.hackernewsdb = new HackernewsDB());
+
+      db.connect();
+
+      const result = await db.favorites.findOne({ email: userEmail });
+
+      db.disconnect();
+
+      return result?.favorites || [];
     },
   },
   Mutation: {

@@ -1,6 +1,6 @@
 import { PageLoading } from "@/components";
 import { useQuery } from "@apollo/client";
-import { GET_FEED_BY_TYPE, GET_FEED_LENGTH_BY_TYPE } from "../../queries";
+import { GET_FEED_BY_TYPE, GET_FEED_LENGTH_BY_TYPE, GET_IDS_OF_USERS_FAVS } from "../../queries";
 import { setAlert } from "@/redux/alert-slice";
 import { useAppDispatch } from "@/redux/hooks";
 import styled from "styled-components";
@@ -16,19 +16,28 @@ export enum FeedType {
 
 interface FeedProps {
   type: FeedType;
+  userEmail: string;
 }
 
-export const Feed = ({ type }: FeedProps) => {
+export const Feed = ({ type, userEmail }: FeedProps) => {
   const limit = 20;
   const dispatch = useAppDispatch();
+  // Get the content length of the required feed type for pagination
   const { data: lengthData } = useQuery(GET_FEED_LENGTH_BY_TYPE, {
     variables: { feedType: type },
   });
+  // Get the feed items by type
   const { loading, data, error, fetchMore } = useQuery(GET_FEED_BY_TYPE, {
     variables: {
       offset: 0,
       limit,
       feedType: type,
+    },
+  });
+  // Get the user's favorite ids
+  const { data: favIds } = useQuery(GET_IDS_OF_USERS_FAVS, {
+    variables: {
+      userEmail,
     },
   });
 
@@ -64,7 +73,14 @@ export const Feed = ({ type }: FeedProps) => {
   return (
     <FeedGrid>
       {data?.feed.map((story: StoryType, index: number) => {
-        return <FeedItem isUserFav={true} story={story} index={index} key={story.id} />;
+        return (
+          <FeedItem
+            isUsersFav={favIds.getIdsOfUsersFavs.includes(story.id)} // check if story is a user's fav
+            story={story}
+            index={index}
+            key={story.id}
+          />
+        );
       })}
       {data && (
         <LoadMore

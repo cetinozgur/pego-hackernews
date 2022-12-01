@@ -42,6 +42,12 @@ export const GET_FAVS_OF_USERS = gql`
   }
 `;
 
+export const GET_IDS_OF_USERS_FAVS = gql`
+  query getIdsOfUsersFavs($userEmail: String!) {
+    getIdsOfUsersFavs(userEmail: $userEmail)
+  }
+`;
+
 export const GET_FEED_LENGTH_BY_TYPE = gql`
   query GetFeedLength($feedType: String!) {
     feedLength(feedType: $feedType)

@@ -5,6 +5,7 @@ type Query {
   getFavsOfUsers(offset: Int!, limit: Int!, userEmail: String!): [Story!]
   feedLength(feedType: String!): Int!
   getFavsOfUsersLength(userEmail: String!): Int!
+  getIdsOfUsersFavs(userEmail: String!): [String!]!
 }
 
 type Mutation {
@@ -22,6 +23,7 @@ type Story {
   type: String!
   url: String
   isMoreInTheFeed: Boolean
+  isUsersFav: Boolean
 }
 
 type User {

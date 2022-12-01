@@ -11,14 +11,15 @@ import { ADD_TO_FAV } from "@/mutations";
 import { selectTheme } from "@/redux/theme-slice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { setAlert } from "@/redux/alert-slice";
+import { MakeFavoriteButton } from "./make-favorite";
 
 interface FeedItemProps {
   story: StoryType;
   index: number;
-  isUserFav?: boolean;
+  isUsersFav: boolean;
 }
 
-export const FeedItem = ({ story, index, isUserFav }: FeedItemProps) => {
+export const FeedItem = ({ story, index, isUsersFav }: FeedItemProps) => {
   const theme = useAppSelector(selectTheme);
   const dispatch = useAppDispatch();
   const [showCommentsForId, setShowCommentsForId] = useState<string>("");
@@ -68,15 +69,8 @@ export const FeedItem = ({ story, index, isUserFav }: FeedItemProps) => {
         >
           {showCommentsForId === story.id ? `Hide` : `${story.descendants} comments`}
         </DetailLink>
-        {isUserFav && (
-          <>
-            <Divider vertical />
-
-            <DetailLink className={theme} onClick={() => handleVote(story.id)}>
-              Add to favorites
-            </DetailLink>
-          </>
-        )}
+        <Divider vertical />
+        {isUsersFav ? <MakeFavoriteButton storyId={story.id} /> : <p>already fav</p>}
       </Details>
       {showCommentsForId === story.id && <FeedItemComments storyId={story.id} />}
     </Container>

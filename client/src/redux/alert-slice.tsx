@@ -15,8 +15,6 @@ export const alertSlice = createSlice({
   initialState,
   reducers: {
     setAlert: (_state, action) => {
-      console.log(action);
-
       return action.payload;
     },
     removeAlert: () => {

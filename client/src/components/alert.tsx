@@ -14,6 +14,7 @@ export const Alert = () => {
           type={type}
           closable
           onClose={() => setTimeout(() => dispatch(removeAlert()), 2000)}
+          style={{ position: "relative", width: "100%", zIndex: "9999" }}
         >
           {message}
         </Message>

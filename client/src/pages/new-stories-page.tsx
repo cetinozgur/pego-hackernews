@@ -1,12 +1,19 @@
 import { Feed } from "@/features/stories/feed";
 import { FeedTitle } from "@/features/stories/feed-title";
 import { FeedType } from "@/features/stories/feed";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const NewStoriesPage = () => {
+  const { user } = useAuth0();
+
   return (
     <>
-      <FeedTitle title="New Stories" />
-      <Feed type={FeedType.NEW} />
+      {user?.email && (
+        <>
+          <FeedTitle title="Top Stories" />
+          <Feed userEmail={user?.email} type={FeedType.NEW} />
+        </>
+      )}
     </>
   );
 };

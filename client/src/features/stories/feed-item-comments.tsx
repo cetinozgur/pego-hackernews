@@ -20,8 +20,6 @@ export const FeedItemComments = ({ storyId }: FeedItemCommentsProps) => {
     },
   });
 
-  console.log(data);
-
   if (loading) {
     return (
       <Stack justifyContent="center">

@@ -44,6 +44,7 @@ export type Query = {
   feedLength: Scalars['Int'];
   getFavsOfUsers?: Maybe<Array<Story>>;
   getFavsOfUsersLength: Scalars['Int'];
+  getIdsOfUsersFavs: Array<Scalars['String']>;
   story?: Maybe<Story>;
 };
 
@@ -79,6 +80,11 @@ export type QueryGetFavsOfUsersLengthArgs = {
 };
 
 
+export type QueryGetIdsOfUsersFavsArgs = {
+  userEmail: Scalars['String'];
+};
+
+
 export type QueryStoryArgs = {
   id: Scalars['ID'];
 };
@@ -89,6 +95,7 @@ export type Story = {
   descendants?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   isMoreInTheFeed?: Maybe<Scalars['Boolean']>;
+  isUsersFav?: Maybe<Scalars['Boolean']>;
   kids?: Maybe<Array<Comment>>;
   score?: Maybe<Scalars['Int']>;
   time?: Maybe<Scalars['Int']>;
@@ -222,6 +229,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   feedLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryFeedLengthArgs, 'feedType'>>;
   getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'limit' | 'offset' | 'userEmail'>>;
   getFavsOfUsersLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryGetFavsOfUsersLengthArgs, 'userEmail'>>;
+  getIdsOfUsersFavs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetIdsOfUsersFavsArgs, 'userEmail'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;
 
@@ -230,6 +238,7 @@ export type StoryResolvers<ContextType = MyContext, ParentType extends Resolvers
   descendants?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isMoreInTheFeed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  isUsersFav?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   time?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;

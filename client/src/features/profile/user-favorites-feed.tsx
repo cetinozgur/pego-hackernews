@@ -9,7 +9,7 @@ import type { Story as StoryType } from "@/gql/graphql";
 import { LoadMore } from "../stories/load-more";
 
 export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
-  const limit = 20;
+  const limit = 10;
   const dispatch = useAppDispatch();
   const { data: lengthData } = useQuery(GET_USER_FAVS_FEED_LENGTH, {
     variables: { userEmail },
@@ -52,7 +52,7 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
     <Container>
       <FeedGrid>
         {data?.getFavsOfUsers.map((story: StoryType, index: number) => {
-          return <FeedItem story={story} index={index} key={story.id} />;
+          return <FeedItem isUsersFav={true} story={story} index={index} key={story.id} />;
         })}
       </FeedGrid>
       {data && (
