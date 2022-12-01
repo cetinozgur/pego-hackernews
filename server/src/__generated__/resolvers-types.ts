@@ -68,6 +68,8 @@ export type QueryFeedLengthArgs = {
 
 
 export type QueryGetFavsOfUsersArgs = {
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
   userEmail: Scalars['String'];
 };
 
@@ -218,7 +220,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'storyId'>>;
   feed?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryFeedArgs, 'feedType' | 'limit' | 'offset'>>;
   feedLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryFeedLengthArgs, 'feedType'>>;
-  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'userEmail'>>;
+  getFavsOfUsers?: Resolver<Maybe<Array<ResolversTypes['Story']>>, ParentType, ContextType, RequireFields<QueryGetFavsOfUsersArgs, 'limit' | 'offset' | 'userEmail'>>;
   getFavsOfUsersLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<QueryGetFavsOfUsersLengthArgs, 'userEmail'>>;
   story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<QueryStoryArgs, 'id'>>;
 }>;

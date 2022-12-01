@@ -24,7 +24,7 @@ export const resolvers: Resolvers = {
       );
       return comments;
     },
-    getFavsOfUsers: async (_, { userEmail }, { dataSources }) => {
+    getFavsOfUsers: async (_, { userEmail, offset, limit }, { dataSources }) => {
       const db = (dataSources.hackernewsdb = new HackernewsDB());
 
       db.connect();
@@ -35,7 +35,9 @@ export const resolvers: Resolvers = {
 
       const storyIds = result?.favorites || [];
 
-      return storyIds.map((id: string) => dataSources.hackernewsApi.getItemById(id));
+      return storyIds
+        .slice(offset!, offset! + limit!)
+        .map((id: string) => dataSources.hackernewsApi.getItemById(id));
     },
     getFavsOfUsersLength: async (_, { userEmail }, { dataSources }) => {
       const db = (dataSources.hackernewsdb = new HackernewsDB());

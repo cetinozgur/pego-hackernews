@@ -2,7 +2,7 @@ type Query {
   feed(offset: Int!, limit: Int!, feedType: String!): [Story!]!
   story(id: ID!): Story
   comments(offset: Int, limit: Int, storyId: ID!): [Comment!]
-  getFavsOfUsers(userEmail: String!): [Story!]
+  getFavsOfUsers(offset: Int!, limit: Int!, userEmail: String!): [Story!]
   feedLength(feedType: String!): Int!
   getFavsOfUsersLength(userEmail: String!): Int!
 }

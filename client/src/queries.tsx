@@ -21,6 +21,27 @@ export const GET_FEED_BY_TYPE = gql`
   }
 `;
 
+export const GET_FAVS_OF_USERS = gql`
+  query getFavsOfUsers($offset: Int!, $limit: Int!, $userEmail: String!) {
+    getFavsOfUsers(offset: $offset, limit: $limit, userEmail: $userEmail) {
+      id
+      by {
+        id
+        about
+        created
+        karma
+        delay
+        submitted
+      }
+      descendants
+      score
+      time
+      title
+      url
+    }
+  }
+`;
+
 export const GET_FEED_LENGTH_BY_TYPE = gql`
   query GetFeedLength($feedType: String!) {
     feedLength(feedType: $feedType)
@@ -60,27 +81,6 @@ export const GET_AUTHOR_DETAILS = gql`
       karma
       delay
       submitted
-    }
-  }
-`;
-
-export const GET_FAVS_OF_USERS = gql`
-  query getFavsOfUsers($userEmail: String!) {
-    getFavsOfUsers(userEmail: $userEmail) {
-      id
-      by {
-        id
-        about
-        created
-        karma
-        delay
-        submitted
-      }
-      descendants
-      score
-      time
-      title
-      url
     }
   }
 `;

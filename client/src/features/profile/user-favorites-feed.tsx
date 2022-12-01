@@ -17,6 +17,8 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
   const { loading, data, error, fetchMore } = useQuery(GET_FAVS_OF_USERS, {
     variables: {
       userEmail,
+      offset: 0,
+      limit,
     },
   });
 
