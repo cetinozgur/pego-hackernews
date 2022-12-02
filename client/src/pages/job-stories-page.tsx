@@ -10,7 +10,7 @@ export const JobStoriesPage = () => {
     <>
       {user?.email && (
         <>
-          <FeedTitle title="Ask Stories" />
+          <FeedTitle title="Job Stories" />
           <Feed userEmail={user?.email} type={FeedType.JOB} />
         </>
       )}
