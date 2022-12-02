@@ -8,6 +8,7 @@ import { FeedItem } from "../stories/feed-item";
 import type { Story as StoryType } from "@/gql/graphql";
 import { LoadMore } from "../stories/load-more";
 import { RemoveAllFavorites } from "../stories/remove-all-favs";
+import { Nav } from "rsuite";
 
 export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
   const limit = 10;
@@ -54,6 +55,11 @@ export const UserFavoritesFeed = ({ userEmail }: { userEmail: string }) => {
 
   return (
     <Container>
+      {/* <Nav>
+        <Nav.Item>Default Item</Nav.Item>
+        <Nav.Item active>Active Item</Nav.Item>
+        <Nav.Item disabled>Disabled Item</Nav.Item>
+      </Nav> */}
       <RemoveAllFavorites lengthOfFavs={data?.getFavsOfUsers} />
       <FeedGrid>
         {data?.getFavsOfUsers?.map((story: StoryType, index: number) => {

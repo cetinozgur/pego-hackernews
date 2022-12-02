@@ -6,7 +6,7 @@ export class HackernewsAPI extends RESTDataSource {
     this.baseURL = "https://hacker-news.firebaseio.com/v0/";
   }
 
-  async getFeedIdsByType(type: "top" | "best" | "new" | string) {
+  async getFeedIdsByType(type: string) {
     switch (type) {
       case "top":
         return await this.get("topstories.json");
@@ -16,6 +16,16 @@ export class HackernewsAPI extends RESTDataSource {
         break;
       case "new":
         return await this.get("newstories.json");
+        break;
+      case "ask":
+        return await this.get("askstories.json");
+        break;
+      case "show":
+        return await this.get("showstories.json");
+        break;
+      case "job":
+        return await this.get("jobstories.json");
+        break;
       default:
         break;
     }
