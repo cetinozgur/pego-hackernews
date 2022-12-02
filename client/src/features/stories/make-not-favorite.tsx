@@ -26,6 +26,8 @@ export const MakeNotFavoriteButton = ({ storyId }: MakeNotFavoriteButtonProps) =
         })
       );
     }
+
+    window.location.reload();
   };
 
   return (

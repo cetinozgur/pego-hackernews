@@ -22,6 +22,8 @@ export const RemoveAllFavorites = ({ lengthOfFavs }: { lengthOfFavs: number }) =
         })
       );
     }
+
+    window.location.reload();
   };
 
   return (
